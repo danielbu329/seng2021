@@ -11,7 +11,7 @@ def parseTime(s):
     return time.strptime(s, '%Y-%m-%dT%H:%M:%S+0000')
 
 class Facebook:
-    def getFeed():
+    def getFeed(self):
         req = '/v2.4/%d/feed?%s' % (group_id, params)
 
         conn = http.client.HTTPSConnection('graph.facebook.com')
@@ -32,3 +32,8 @@ class Facebook:
 
         return feed
 
+f = Facebook()
+messages = f.getFeed()
+
+for i in messages:
+    print (i['message'], "\n")
