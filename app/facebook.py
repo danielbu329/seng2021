@@ -2,6 +2,7 @@ import http.client
 import urllib
 from json import loads as parseJson
 import time
+import re
 
 access_token = '1633260020259993|4J_v5RbtjG8CFhnfBYsHagTlsiw'
 group_id = 428460270539887
@@ -34,6 +35,19 @@ class Facebook:
 
 f = Facebook()
 messages = f.getFeed()
+filtered = []
 
-for i in messages:
-    print (i['message'], "\n")
+foods = [line.rstrip('\n') for line in open('foods.txt')]
+
+for m in messages:
+    for f in foods:
+        if f in m['message']:
+            filtered.append({
+                'post_id': m['post_id'],
+                'time': m['time'],
+                'message': m['message']
+            })
+
+for i in filtered:
+    print (i, "\n")
+
