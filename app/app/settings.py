@@ -80,8 +80,8 @@ DATABASES = {
         #'ENGINE': 'django.db.backends.postgres_psycopg2',
         'ENGINE': 'django.db.backends.postgres',
         #'NAME': 'mysql',
-        'NAME': '',
-        'USER': 'root',
+        'NAME': 'freeatsData',
+        'USER': 'postgres',
         'PASSWORD': 'password'
     }
 }
