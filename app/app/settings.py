@@ -77,12 +77,13 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.mysql',
-        #'ENGINE': 'django.db.backends.postgres_psycopg2',
-        'ENGINE': 'django.db.backends.postgres',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'ENGINE': 'django.db.backends.postgres',
         #'NAME': 'mysql',
-        'NAME': 'freeatsData',
+        'NAME': 'freeatsdata',
         'USER': 'postgres',
-        'PASSWORD': 'password'
+        'PASSWORD': 'password',
+        'HOST' : 'LOCALHOST',
     }
 }
 
