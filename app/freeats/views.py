@@ -5,3 +5,6 @@ def index(request):
 
 def createpost(request):
 	return render(request, 'freeats/createpost.html', {})
+
+def test(request):
+	return render(request, 'freeats/test.html', {})

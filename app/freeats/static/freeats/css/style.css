@@ -19,6 +19,7 @@ body {
     left: 0;
     width: 33%;
     height: 100%;
+    padding-top: 1em;
 }
 .right {
     position: fixed;
@@ -28,7 +29,6 @@ body {
     height: 100%;
 }
 .map {
-    z-index: -1;
     height: calc(100% - 5px);
 }
 .panel {
@@ -46,18 +46,19 @@ h1 {
     position: relative;
     left: 50%;
     transform: translateX(-50%);
+    margin-bottom: 1em;
 }
 input[type="text"] {
-    width: calc(100% - 6px);
+    width: 100%;
     font-family: Arial;
     border: 1px solid #666;
     border-radius: 3px;
     padding: 5px 3px;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.85);
 }
 .item {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.85);
     border-bottom: 1px solid #CCC;
     padding: 0.5em;
     height: calc(4em + 10px);
@@ -66,7 +67,7 @@ input[type="text"] {
     box-shadow: 5px 5px 3px #888;
 }
 .item:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(230, 230, 230, 0.85);
 }
 .letter {
     float: left;
