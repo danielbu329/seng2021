@@ -3,7 +3,7 @@ html, body {
 }
 body {
     font-family: Arial;
-    background-color: #D8E3E3;
+    background-color: #EEE;
 }
 .middle {
     display: inline-block;
@@ -41,14 +41,19 @@ input[type="text"] {
     border: 1px solid #666;
     border-radius: 3px;
     padding: 5px 3px;
-    background-color: rgba(0, 0, 100, 0.05);
+    background-color: rgba(0, 0, 0, 0.05);
 }
 .item {
+    cursor: pointer;
+    background-color: #E2E2E2;
     border-bottom: 1px solid #CCC;
     padding: 0.5em;
     height: calc(4em + 3px);
-    /*margin-bottom: 1em;
-    box-shadow: 10px 10px 5px #888;*/
+    margin-bottom: 1em;
+    /*box-shadow: 5px 5px 3px #888;*/
+}
+.item:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 .letter {
     float: left;

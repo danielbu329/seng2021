@@ -5,16 +5,18 @@
     <head>
         <link rel="stylesheet" type="text/css"
             href="{% static 'freeats/css/style.css' %}" />
+        <script type="text/javascript" data-main="{% static 'freeats/js/main.js' %}"
+            src="{% static 'freeats/js/require-2.1.20.min.js' %}"></script>
     </head>
-    <body>
-        <div class="left">
+    <body ng-app="freeats">
+        <div class="left" ng-controller="MainCtrl">
             <div class="panel">
                 <img src="{% static 'freeats/logo_side.png' %}" style="width: 100%">
             </div>
             <div class="indent">
                 <input type="text" placeholder="Search" />
                 <div class="panel">
-                    <div class="item">
+                    <div class="item" ng-click="hello()">
                         <div class="letter">
                             <span class="middle">A</span>
                         </div>
@@ -38,6 +40,25 @@
                         </div>
                         <div class="location">
                             <span class="middle">Main Walkway</span>
+                        </div>
+                        <div class="bar">
+                            <span class="green" style="width: 95%;">&nbsp;</span>
+                            <span class="red" style="width: 5%;">&nbsp;</span>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="letter">
+                            <span class="middle">C</span>
+                        </div>
+                        <div class="title">
+                            <span class="middle">Pizza</span>
+                        </div>
+                        <div class="location">
+                            <span class="middle">Main Walkway</span>
+                        </div>
+                        <div class="bar">
+                            <span class="green" style="width: 40%;">&nbsp;</span>
+                            <span class="red" style="width: 60%;">&nbsp;</span>
                         </div>
                     </div>
                 </div>
