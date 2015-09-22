@@ -109,11 +109,22 @@ input[type="text"] {
     height: 1.75em;
     text-align: center;
 }
+.voteBtn span {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
 .voteBtn.up {
 
 }
 .voteBtn.down {
     border-top: none;
+}
+.voteBtn.up:hover {
+    background-color: rgba(200, 255, 200, 0.85);
+}
+.voteBtn.down:hover {
+    background-color: rgba(255, 200, 200, 0.85);
 }
 .bar {
     display: inline-block;
