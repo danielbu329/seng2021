@@ -1,12 +1,13 @@
 define('MainCtrl', [
+  'jquery',
   'app'
 ],
-function (app) {
+function ($, app) {
   app.controller(
     'MainCtrl',
     function ($scope) {
-      $scope.hello = function () {
-        console.log('Hello, world!');
+      $scope.showFoodDetail = function () {
+        $('#foodDetail').modal();
       };
     }
   );

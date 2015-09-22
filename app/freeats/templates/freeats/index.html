@@ -2,69 +2,95 @@
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" type="text/css"
-            href="{% static 'freeats/css/bootstrap-3.3.5/bootstrap.min.css' %}">
-        <link rel="stylesheet" type="text/css"
-            href="{% static 'freeats/css/style.css' %}" />
-        <script src="{% static 'freeats/js/lib/bootstrap-3.3.5.min.js' %}"></script>
-        <script type="text/javascript" data-main="{% static 'freeats/js/main.js' %}"
-            src="{% static 'freeats/js/require-2.1.20.min.js' %}"></script>
-    </head>
-    <body ng-app="freeats">
-        <div class="map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3937.3657831621736!2d151.22965985046156!3d-33.91754154798456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12b18b0302c1a7%3A0x1d017d69037a07a0!2sThe+University+of+New+South+Wales!5e0!3m2!1sen!2sau!4v1441261613981" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+  <head>
+    <link rel="stylesheet" type="text/css"
+      href="{% static 'freeats/css/bootstrap-3.3.5/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css"
+      href="{% static 'freeats/css/style.css' %}" />
+    <script type="text/javascript" data-main="{% static 'freeats/js/main.js' %}"
+      src="{% static 'freeats/js/lib/require-2.1.20.min.js' %}"></script>
+  </head>
+  <body ng-app="freeats" ng-controller="MainCtrl">
+    <div class="map">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3937.3657831621736!2d151.22965985046156!3d-33.91754154798456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12b18b0302c1a7%3A0x1d017d69037a07a0!2sThe+University+of+New+South+Wales!5e0!3m2!1sen!2sau!4v1441261613981" width="100%" height="100%" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+    <div class="left">
+      <img src="{% static 'freeats/logo_side.png' %}">
+      <div class="indent">
+        <input type="text" placeholder="Search" />
+        <div class="item" ng-click="showFoodDetail()">
+          <div class="letter">
+            <span class="middle">A</span>
+          </div>
+          <div class="title">
+            <span class="middle">Pizza</span>
+          </div>
+          <div class="location">
+            <span class="middle">Main Walkway</span>
+          </div>
+          <div class="bar">
+            <span class="green" style="width: 75%;">&nbsp;</span>
+            <span class="red" style="width: 25%;">&nbsp;</span>
+          </div>
         </div>
-        <div class="left" ng-controller="MainCtrl">
-            <img src="{% static 'freeats/logo_side.png' %}">
-            <div class="indent">
-                <input type="text" placeholder="Search" />
-                <div class="item" ng-click="hello()">
-                    <div class="letter">
-                        <span class="middle">A</span>
-                    </div>
-                    <div class="title">
-                        <span class="middle">Pizza</span>
-                    </div>
-                    <div class="location">
-                        <span class="middle">Main Walkway</span>
-                    </div>
-                    <div class="bar">
-                        <span class="green" style="width: 75%;">&nbsp;</span>
-                        <span class="red" style="width: 25%;">&nbsp;</span>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="letter">
-                        <span class="middle">B</span>
-                    </div>
-                    <div class="title">
-                        <span class="middle">Pizza</span>
-                    </div>
-                    <div class="location">
-                        <span class="middle">Main Walkway</span>
-                    </div>
-                    <div class="bar">
-                        <span class="green" style="width: 95%;">&nbsp;</span>
-                        <span class="red" style="width: 5%;">&nbsp;</span>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="letter">
-                        <span class="middle">C</span>
-                    </div>
-                    <div class="title">
-                        <span class="middle">Pizza</span>
-                    </div>
-                    <div class="location">
-                        <span class="middle">Main Walkway</span>
-                    </div>
-                    <div class="bar">
-                        <span class="green" style="width: 40%;">&nbsp;</span>
-                        <span class="red" style="width: 60%;">&nbsp;</span>
-                    </div>
-                </div>
-            </div>
+        <div class="item" ng-click="showFoodDetail()">
+          <div class="letter">
+            <span class="middle">B</span>
+          </div>
+          <div class="title">
+            <span class="middle">Pizza</span>
+          </div>
+          <div class="location">
+            <span class="middle">Main Walkway</span>
+          </div>
+          <div class="bar">
+            <span class="green" style="width: 95%;">&nbsp;</span>
+            <span class="red" style="width: 5%;">&nbsp;</span>
+          </div>
         </div>
-    </body>
+        <div class="item" ng-click="showFoodDetail()">
+          <div class="letter">
+            <span class="middle">C</span>
+          </div>
+          <div class="title">
+            <span class="middle">Pizza</span>
+          </div>
+          <div class="location">
+            <span class="middle">Main Walkway</span>
+          </div>
+          <div class="bar">
+            <span class="green" style="width: 40%;">&nbsp;</span>
+            <span class="red" style="width: 60%;">&nbsp;</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="foodDetail" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close"
+              data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">Modal title</h4>
+          </div>
+          <div class="modal-body">
+            <p>One fine body&hellip;</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default"
+              data-dismiss="modal">
+                Close
+            </button>
+            <button type="button" class="btn btn-primary">
+                Save changes
+            </button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+  </body>
 </html>
