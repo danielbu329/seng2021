@@ -67,7 +67,7 @@ input[type="text"] {
     background-color: rgba(255, 255, 255, 0.85);
     border: 1px solid #BBB;
     padding: 0.5em;
-    height: calc(4em + 10px);
+    height: calc(4.5em + 0.5em + 5px);
     margin-top: 0.5em;
     margin-bottom: 1em;
     box-shadow: 5px 5px 3px #888;
@@ -78,8 +78,8 @@ input[type="text"] {
 .letter {
     float: left;
     border: 1px solid #BBB;
-    width: 3em;
-    height: 3em;
+    width: 3.5em;
+    height: 3.5em;
     text-align: center;
     font-weight: bold;
 }
@@ -87,8 +87,8 @@ input[type="text"] {
     float: left;
     border: 1px solid #BBB;
     border-left: none;
-    width: calc(100% - 3.5em - 3px);
-    height: 1.5em;
+    width: calc(100% - 3.5em);
+    height: 1.75em;
     padding-left: 0.5em;
 }
 .location {
@@ -96,8 +96,8 @@ input[type="text"] {
     border: 1px solid #BBB;
     border-left: none;
     border-top: none;
-    width: calc(100% - 3.5em - 3px);
-    height: 1.5em;
+    width: calc(100% - 3.5em);
+    height: 1.75em;
     padding-left: 0.5em;
 }
 .bar {
@@ -105,8 +105,7 @@ input[type="text"] {
     float: left;
     margin-top: 0.5em;
     height: 4px;
-    width: 50%;
-    //border: 1px solid;
+    width: 100%;
 }
 .green {
     display: inline-block;
