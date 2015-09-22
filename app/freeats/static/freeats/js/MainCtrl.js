@@ -9,6 +9,9 @@ function ($, app) {
       $scope.showFoodDetail = function () {
         $('#foodDetail').modal();
       };
+      $scope.createPost = function () {
+        $('#newPost').modal();
+      }
     }
   );
 });
