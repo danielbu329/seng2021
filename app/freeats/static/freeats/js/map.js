@@ -3,7 +3,6 @@ define('map', [
   'lib/google.maps'
 ],
 function ($, google) {
-  console.log(google);
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var labelIndex = 0;
   var globeLawn = { lat: -33.917970, lng: 151.231202};

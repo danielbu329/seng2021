@@ -7,10 +7,10 @@ function ($, app) {
     'MainCtrl',
     function ($scope) {
       $scope.showFoodDetail = function () {
-        $('#foodDetail').modal();
+        $('#foodDetailModal').modal();
       };
       $scope.createPost = function () {
-        $('#newPost').modal();
+        $('#newPostModal').modal();
       }
     }
   );

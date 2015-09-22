@@ -48,6 +48,12 @@ h1 {
     transform: translateX(-50%);
     margin-bottom: 1em;
 }
+.bottom-right {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 3em 2em;
+}
 input[type="text"] {
     width: 100%;
     font-family: Arial;
@@ -59,7 +65,7 @@ input[type="text"] {
 .item {
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.85);
-    border-bottom: 1px solid #CCC;
+    border: 1px solid #BBB;
     padding: 0.5em;
     height: calc(4em + 10px);
     margin-top: 0.5em;
@@ -113,4 +119,11 @@ input[type="text"] {
     background-color: #E60000;
     height: 100%;
     margin-left: -4px;
+}
+.btn:focus, .btn:active, .btn::-moz-focus-inner {
+    /* remove the dotted outline around buttons */
+    outline: none;
+}
+#newPostModal input[type="text"] {
+    width: 50%;
 }
