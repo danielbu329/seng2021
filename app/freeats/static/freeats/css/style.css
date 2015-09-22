@@ -77,7 +77,7 @@ input[type="text"] {
 }
 .letter {
     float: left;
-    border: 1px dashed black;
+    border: 1px solid #BBB;
     width: 3em;
     height: 3em;
     text-align: center;
@@ -85,7 +85,7 @@ input[type="text"] {
 }
 .title {
     float: left;
-    border: 1px solid black;
+    border: 1px solid #BBB;
     border-left: none;
     width: calc(100% - 3.5em - 3px);
     height: 1.5em;
@@ -93,13 +93,12 @@ input[type="text"] {
 }
 .location {
     float: left;
-    border: 1px solid black;
+    border: 1px solid #BBB;
     border-left: none;
     border-top: none;
     width: calc(100% - 3.5em - 3px);
     height: 1.5em;
     padding-left: 0.5em;
-    margin-top: -1px;
 }
 .bar {
     display: inline-block;
