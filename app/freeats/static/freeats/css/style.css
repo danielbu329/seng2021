@@ -54,6 +54,17 @@ h1 {
     right: 0;
     padding: 3em 2em;
 }
+.top-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 1em 2em;
+}
+.top-right img {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+}
 input[type="text"] {
     width: 100%;
     font-family: Arial;
