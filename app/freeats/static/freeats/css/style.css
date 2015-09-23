@@ -98,6 +98,7 @@ input[type="text"] {
     float: left;
     border: 1px solid #BBB;
     border-left: none;
+    border-bottom: none;
     width: calc(100% - 3.5em - 1.75em);
     height: 1.75em;
     padding-left: 0.5em;
@@ -132,10 +133,16 @@ input[type="text"] {
     border-top: none;
 }
 .voteBtn.up:hover {
-    background-color: rgba(200, 255, 200, 0.85);
+    background-color: rgba(200, 255, 200, 0.85) !important;
 }
 .voteBtn.down:hover {
-    background-color: rgba(255, 200, 200, 0.85);
+    background-color: rgba(255, 200, 200, 0.85) !important;
+}
+.voteBtn.up.selected {
+    background-color: rgba(120, 255, 120, 0.85);
+}
+.voteBtn.down.selected {
+    background-color: rgba(255, 120, 120, 0.85);
 }
 .bar {
     display: inline-block;

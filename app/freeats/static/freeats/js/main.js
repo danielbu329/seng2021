@@ -15,11 +15,12 @@ require.config({
 });
 
 require([
+  'map',
   'bootstrap',
+  'angular',
   'app',
-  'MainCtrl',
-  'map'
+  'MainCtrl'
 ], function () {
   console.log('Initializing freeats...');
-  angular.bootstrap(document.body, ['freeats']);
+  angular.bootstrap(document, ['freeats']);
 });

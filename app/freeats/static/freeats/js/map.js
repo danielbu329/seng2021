@@ -8,7 +8,6 @@ function ($, google) {
   var globeLawn = { lat: -33.917970, lng: 151.231202};
   var unsw = {lat: -33.9178745, lng: 151.2306935};
 
-  console.log(google.maps.Map);
   var map = new google.maps.Map($('.map')[0], {
     center: unsw,
     zoom: 17,
