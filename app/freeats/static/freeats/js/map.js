@@ -37,6 +37,12 @@ function ($, google, MainCtrl) {
     console.info('Map loaded');
     $($('.map')[0]).fadeTo(400, 1);
     setTimeout(MainCtrl.show, 200);
+    window.setTimeout( function() {
+      addMarker(globeLawn, map);
+      addMarker(libaryLawn, map);
+      addMarker(physicsLawn, map);
+      addMarker(mainWalkway, map);
+    }, 500);
   });
 
   map.addListener('center_changed', function() {
@@ -46,10 +52,8 @@ function ($, google, MainCtrl) {
   });
 
 
-  addMarker(globeLawn, map);
-  addMarker(libaryLawn, map);
-  addMarker(physicsLawn, map);
-  addMarker(mainWalkway, map);
+
+
 
   return map;
 });
