@@ -25,10 +25,12 @@ function ($, app) {
       $scope.upvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
         getItemById(itemId).vote = 'up';
+        // Make and PUT HTTP request to update the vote for current food item
       };
       $scope.downvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
         getItemById(itemId).vote = 'down';
+        // Make and PUT HTTP request to update the vote for current food item
       };
       $scope.createPost = function () {
         $('#newPostModal').modal();

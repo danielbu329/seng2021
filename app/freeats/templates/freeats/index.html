@@ -45,7 +45,15 @@
     </div>
 
     <div class="top-right">
-      <img src="{% static 'freeats/profile.jpg' %}">
+      <div class="dropdown">
+        <img src="{% static 'freeats/profile.jpg' %}"
+              id="userDropdown" data-toggle="dropdown">
+        <ul class="dropdown-menu pull-right" aria-labelledby="userDropdown">
+          <li><a href="#">My Posts</a></li>
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+      </div>
     </div>
 
     <div class="bottom-right">
