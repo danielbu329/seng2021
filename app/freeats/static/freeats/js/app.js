@@ -1,7 +1,8 @@
 define('app', [
-  'angular'
+  'angular',
+  'ngResource'
 ],
 function (angular) {
-  var app = angular.module('freeats', []);
+  var app = angular.module('freeats', ['ngResource']);
   return app;
 });

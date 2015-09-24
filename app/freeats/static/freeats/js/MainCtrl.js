@@ -6,7 +6,7 @@ function ($, app) {
   // Create main controller and attach it to the angular app
   app.controller(
     'MainCtrl',
-    function ($scope) {
+    function ($scope, $resource) {
       var getItemById = function (id) {
         var item = null;
         for (i in $scope.foodCollection) {
