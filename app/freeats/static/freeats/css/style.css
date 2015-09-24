@@ -168,12 +168,12 @@ input[type="text"] {
 }
 .green {
     display: inline-block;
-    background-color: #33CC33;
+    background-color: rgb(80, 200, 80);
     height: 100%;
 }
 .red {
     display: inline-block;
-    background-color: #E60000;
+    background-color: rgb(200, 80, 80);
     height: 100%;
     margin-left: -4px;
 }
