@@ -24,6 +24,7 @@ function ($, google, MainCtrl) {
     var marker = new google.maps.Marker({
       position: location,
       label: labels[labelIndex++ % labels.length],
+      animation: google.maps.Animation.DROP,
       map: map
     });
   };
@@ -37,6 +38,13 @@ function ($, google, MainCtrl) {
     $($('.map')[0]).fadeTo(400, 1);
     setTimeout(MainCtrl.show, 200);
   });
+
+  map.addListener('center_changed', function() {
+    window.setTimeout(function() {
+      map.panTo(unsw);
+    }, 500);
+  });
+
 
   addMarker(globeLawn, map);
   addMarker(libaryLawn, map);
