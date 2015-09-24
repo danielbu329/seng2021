@@ -119,11 +119,27 @@ input[type="text"] {
     border-left: none;
     height: 1.75em;
     text-align: center;
+    cursor: pointer;
 }
 .voteBtn span {
+    display: inline-block;
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+}
+.voteBtn-group {
+    border: 1px solid #BBB;
+    border-radius: 3px;
+}
+.voteBtn-group .voteBtn {
+    border: none;
+}
+.voteBtn-group .voteBtn.up {
+    border-right: 1px solid #BBB;
+    border-radius: 3px 0 0 3px;
+}
+.voteBtn-group .voteBtn.down {
+    border-radius: 0 3px 3px 0;
 }
 .voteBtn.up {
 

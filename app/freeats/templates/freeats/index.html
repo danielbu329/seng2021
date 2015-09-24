@@ -70,6 +70,18 @@
             </h4>
           </div>
           <div class="modal-body">
+            <div class="voteBtn-group pull-right">
+              <div class="voteBtn up"
+                    ng-class="{'selected': currentItem.vote == 'up'}"
+                    ng-click="upvote($event, currentItem.id)">
+                <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+              </div>
+              <div class="voteBtn down"
+                    ng-class="{'selected': currentItem.vote == 'down'}"
+                    ng-click="downvote($event, currentItem.id)">
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+              </div>
+            </div>
             <p>
               <b>Where:</b> <span ng-bind="currentItem.location"></span>
             </p>
