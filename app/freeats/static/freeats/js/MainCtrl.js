@@ -85,6 +85,8 @@ function ($, app) {
     show: function () {
       $('.left .item').hide();
       $('.left').fadeTo(400, 1);
+      $('.top-right').fadeTo(400, 1);
+      $('.bottom-right').fadeTo(400, 1);
       var items = $('.left .item');
       items.each(function (index, element) {
         $(element).slideDown(500);
