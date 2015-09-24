@@ -207,3 +207,15 @@ input[type="text"] {
     margin-top: 7px;
     color: #999;
 }
+.dropdown-menu::after {
+    /* This is taken from bootstrap to add a little white up arrow pointing
+       to the user profile icon */
+    position: absolute;
+    top: -6px;
+    right: 18px;
+    display: inline-block;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid white;
+    border-left: 6px solid transparent;
+    content: '';
+}
