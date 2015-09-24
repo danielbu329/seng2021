@@ -17,7 +17,7 @@
       <div class="indent">
         <input type="text" placeholder="Search" />
         <div ng-repeat="item in foodCollection">
-          <div class="item" ng-click="showFoodDetail($event)">
+          <div class="item" ng-click="showFoodDetail($event, item.id)">
             <div class="letter">
               <span class="middle" ng-bind="item.letter"></span>
             </div>
@@ -65,18 +65,48 @@
               data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <h4 class="modal-title">Modal title</h4>
+            <h4 class="modal-title">
+              <span ng-bind="currentItem.title"></span>
+            </h4>
           </div>
           <div class="modal-body">
-            <p>One fine body&hellip;</p>
+            <p>
+              <b>Where:</b> <span ng-bind="currentItem.location"></span>
+            </p>
+            <p>
+              <b>Original Post:</b>
+              <br/>
+              <img ng-if="currentItem.pic" src="{% static 'freeats/pizza.jpg' %}"
+                  class="food-pic pull-right">
+            </p>
+            <blockquote class="food-post">
+              <p ng-bind="currentItem.post"></p>
+              <div ng-if="currentItem.fromFacebook">
+                <footer>UNSW Free Food Facebook group</footer>
+              </div>
+            </blockquote>
           </div>
           <div class="modal-footer">
+            <span class="pull-left modal-footer-info">
+              <div ng-switch on="currentItem.fromFacebook">
+                <div ng-switch-when="true">
+                  <a target="_blank"
+                      href="https://www.facebook.com/groups/unswfreefood">
+                    <img src="{% static 'freeats/fb_icon.png' %}" class="fb-icon">
+                  </a>
+                  <a target="_blank"
+                      href="https://www.facebook.com/groups/unswfreefood">
+                    See this post on Facebook
+                  </a>
+                </div>
+                <div ng-switch-default>
+                  Submitted via Freeats
+                </div>
+              </div>
+            </span>
             <button type="button" class="btn btn-default"
               data-dismiss="modal">
                 Close
-            </button>
-            <button type="button" class="btn btn-primary">
-                Save changes
             </button>
           </div>
         </div><!-- /.modal-content -->
@@ -93,8 +123,8 @@
             </button>
             <h4 class="modal-title">Create Post</h4>
           </div>
-          <div class="modal-body">
-            <form class="form-horizontal" role="form">
+          <form class="form-horizontal" role="form">
+            <div class="modal-body">
               <div class="form-group">
                 <label class="control-label col-sm-3" for="title">Title:</label>
                 <div class="col-sm-9">
@@ -119,18 +149,17 @@
                   <input type="file" id="image-upload">
                 </div>
               </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default"
+                data-dismiss="modal">
+                  Close
+              </button>
               <button type="submit" class="btn btn-primary pull-right">
                 Submit post
               </button>
-              <br/><br/>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default"
-              data-dismiss="modal">
-                Close
-            </button>
-          </div>
+            </div>
+          </form>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->

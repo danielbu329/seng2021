@@ -3,12 +3,10 @@ define('MainCtrl', [
   'app'
 ],
 function ($, app) {
+  // Create main controller and attach it to the angular app
   app.controller(
     'MainCtrl',
     function ($scope) {
-      $scope.showFoodDetail = function ($event) {
-        $('#foodDetailModal').modal();
-      };
       var getItemById = function (id) {
         var item = null;
         for (i in $scope.foodCollection) {
@@ -20,6 +18,10 @@ function ($, app) {
         }
         return item;
       }
+      $scope.showFoodDetail = function ($event, id) {
+        $scope.currentItem = getItemById(id);
+        $('#foodDetailModal').modal();
+      };
       $scope.upvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
         getItemById(itemId).vote = 'up';
@@ -40,21 +42,28 @@ function ($, app) {
           letter: 'A',
           upvotes: '75%',
           downvotes: '25%',
-          vote: 'up'
+          vote: 'up',
+          post: "There's some free pizza on main walkway.\
+                Diabetes Australia is raising awareness for type 2 diabetes...\
+                Come get it while it's hot!",
+          fromFacebook: true,
+          pic: true
         },
         {
           id: 2,
-          title: 'Pizza',
-          location: 'Main Walkway',
+          title: 'Cereal',
+          location: 'Library lawn',
           letter: 'B',
           upvotes: '95%',
           downvotes: '5%',
-          vote: 'down'
+          vote: 'down',
+          post: "Get you're daily breakfast at the library lawn.\
+                Wide variety of cereal to choose from"
         },
         {
           id: 3,
-          title: 'Pizza',
-          location: 'Main Walkway',
+          title: 'CSESoc BBQ',
+          location: 'Physics lawn',
           letter: 'C',
           upvotes: '40%',
           downvotes: '60%'
@@ -71,4 +80,15 @@ function ($, app) {
       ];
     }
   );
+
+  return {
+    show: function () {
+      $('.left .item').hide();
+      $('.left').fadeTo(400, 1);
+      var items = $('.left .item');
+      items.each(function (index, element) {
+        $(element).slideDown(500);
+      });
+    }
+  };
 });

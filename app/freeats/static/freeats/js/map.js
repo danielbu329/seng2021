@@ -1,8 +1,9 @@
 define('map', [
   'jquery',
-  'lib/google.maps'
+  'lib/google.maps',
+  'MainCtrl'
 ],
-function ($, google) {
+function ($, google, MainCtrl) {
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var labelIndex = 0;
   var globeLawn = { lat: -33.917970, lng: 151.231202};
@@ -12,7 +13,8 @@ function ($, google) {
   var map = new google.maps.Map($('.map')[0], {
     center: unsw,
     zoom: 17,
-    disableDefaultUI: true
+    disableDefaultUI: true,
+    scrollwheel: false
   });
 
   var addMarker = function (location, map) {
@@ -27,9 +29,10 @@ function ($, google) {
     addMarker(event.latLng, map);
   });
 
-  google.maps.event.addListener(map, 'tilesloaded', function () {
-    console.log('map loaded');
-    $($('.map')[0]).fadeTo(200, 1);
+  google.maps.event.addListenerOnce(map, 'tilesloaded', function () {
+    console.info('Map loaded');
+    $($('.map')[0]).fadeTo(400, 1);
+    setTimeout(MainCtrl.show, 200);
   });
 
   addMarker(globeLawn, map);
