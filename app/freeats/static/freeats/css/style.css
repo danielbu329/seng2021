@@ -4,6 +4,7 @@ html, body {
 }
 body {
     height: 100%;
+    background-color: rgb(240, 110, 0);
 }
 .middle {
     display: inline-block;
@@ -28,7 +29,7 @@ body {
     height: 100%;
 }
 .map {
-    height: calc(100% - 5px);
+    height: 100%;
 }
 .panel {
     border-bottom: 1px solid black;
@@ -63,6 +64,7 @@ h1 {
     max-width: 50px;
     max-height: 50px;
     border-radius: 50%;
+
 }
 input[type="text"] {
     width: 100%;

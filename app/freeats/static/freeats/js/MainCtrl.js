@@ -56,7 +56,7 @@ function ($, app) {
           letter: 'B',
           upvotes: '95%',
           downvotes: '5%',
-          vote: 'down',
+          vote: 'up',
           post: "Get you're daily breakfast at the library lawn.\
                 Wide variety of cereal to choose from"
         },
