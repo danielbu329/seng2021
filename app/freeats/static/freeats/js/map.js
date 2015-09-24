@@ -8,6 +8,9 @@ function ($, google, MainCtrl) {
   var labelIndex = 0;
   var globeLawn = { lat: -33.917970, lng: 151.231202};
   var unsw = {lat: -33.9178745, lng: 151.2306935};
+  var libaryLawn = {lat: -33.916785, lng: 151.233555};
+  var physicsLawn = {lat: -33.919068, lng: 151.229847};
+  var mainWalkway = {lat: -33.917521, lng: 151.228371};
 
   $($('.map')[0]).css({ opacity: 0 });
   var map = new google.maps.Map($('.map')[0], {
@@ -36,6 +39,9 @@ function ($, google, MainCtrl) {
   });
 
   addMarker(globeLawn, map);
+  addMarker(libaryLawn, map);
+  addMarker(physicsLawn, map);
+  addMarker(mainWalkway, map);
 
   return map;
 });
