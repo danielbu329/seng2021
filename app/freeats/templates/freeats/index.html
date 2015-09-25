@@ -20,7 +20,6 @@
         <img src="{% static 'freeats/logo_side.png' %}">
       </div>
       <div class="indent items">
-        <input type="text" placeholder="Search" />
         <div ng-repeat="item in foodCollection">
           <div class="item" ng-click="showFoodDetail($event, item.id)">
             <div class="letter">
