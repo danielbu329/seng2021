@@ -81,7 +81,7 @@ input[type="text"] {
     background-color: rgba(255, 255, 255, 0.85);
     border: 1px solid #BBB;
     padding: 0.5em;
-    height: calc(4.5em + 0.5em + 5px);
+    height: calc(4.5em + 0.5em + 4px);
     margin-top: 0.5em;
     margin-bottom: 1em;
     box-shadow: 5px 5px 3px #888;
@@ -167,17 +167,19 @@ input[type="text"] {
     display: inline-block;
     float: left;
     margin-top: 0.5em;
-    height: 4px;
+    height: 3px;
     width: 100%;
 }
-.green {
+.upvotes {
     display: inline-block;
-    background-color: rgb(80, 200, 80);
+    //background-color: rgb(80, 200, 80);
+    background-color: #16C67A;
     height: 100%;
 }
-.red {
+.downvotes {
     display: inline-block;
-    background-color: rgb(200, 80, 80);
+    //background-color: rgb(200, 80, 80);
+    background-color: #CCC;
     height: 100%;
     margin-left: -4px;
 }
