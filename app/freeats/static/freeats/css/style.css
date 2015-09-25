@@ -1,0 +1,233 @@
+html, body {
+    margin: 0;
+    height: 100%;
+}
+body {
+    height: 100%;
+    background-color: rgb(240, 110, 0);
+}
+.middle {
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.left {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 33%;
+    height: 100%;
+    padding-top: 1em;
+    opacity: 0;
+}
+.right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 67%;
+    height: 100%;
+}
+.map {
+    height: 100%;
+}
+.panel {
+    border-bottom: 1px solid black;
+    padding: 0.5em;
+}
+.indent {
+    padding: 0 2em;
+}
+h1 {
+    margin: 0;
+}
+.left img {
+    width: 70%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 1em;
+}
+.bottom-right {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 3em 2em;
+    opacity: 0;
+}
+.top-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 1em 2em;
+    opacity: 0;
+}
+.top-right img {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+input[type="text"] {
+    width: 100%;
+    font-family: Arial;
+    border: 1px solid #666;
+    border-radius: 3px;
+    padding: 5px 3px;
+    background-color: rgba(255, 255, 255, 0.85);
+}
+.item {
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid #BBB;
+    padding: 0.5em;
+    height: calc(4.5em + 0.5em + 4px);
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    box-shadow: 5px 5px 3px #888;
+}
+.item:hover {
+    background-color: rgba(230, 230, 230, 0.85);
+}
+.letter {
+    float: left;
+    border: 1px solid #BBB;
+    width: 3.5em;
+    height: 3.5em;
+    text-align: center;
+    font-weight: bold;
+}
+.title {
+    float: left;
+    border: 1px solid #BBB;
+    border-left: none;
+    border-bottom: none;
+    width: calc(100% - 3.5em - 1.75em);
+    height: 1.75em;
+    padding-left: 0.5em;
+}
+.location {
+    float: left;
+    border: 1px solid #BBB;
+    border-left: none;
+    border-top: none;
+    width: calc(100% - 3.5em - 1.75em);
+    height: 1.75em;
+    padding-left: 0.5em;
+}
+.voteBtn {
+    float: left;
+    width: 1.75em;
+    background-color: rgba(240, 240, 240, 0.85);
+    border: 1px solid #BBB;
+    border-left: none;
+    height: 1.75em;
+    text-align: center;
+    cursor: pointer;
+}
+.voteBtn span {
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.voteBtn-group {
+    border: 1px solid #BBB;
+    border-radius: 3px;
+}
+.voteBtn-group .voteBtn {
+    border: none;
+}
+.voteBtn-group .voteBtn.up {
+    border-right: 1px solid #BBB;
+    border-radius: 3px 0 0 3px;
+}
+.voteBtn-group .voteBtn.down {
+    border-radius: 0 3px 3px 0;
+}
+.voteBtn.up {
+
+}
+.voteBtn.down {
+    border-top: none;
+}
+.voteBtn.up:hover {
+    background-color: rgba(200, 255, 200, 0.85) !important;
+}
+.voteBtn.down:hover {
+    background-color: rgba(255, 200, 200, 0.85) !important;
+}
+.voteBtn.up.selected {
+    background-color: rgba(120, 255, 120, 0.85);
+}
+.voteBtn.down.selected {
+    background-color: rgba(255, 120, 120, 0.85);
+}
+.bar {
+    display: inline-block;
+    float: left;
+    margin-top: 0.5em;
+    height: 3px;
+    width: 100%;
+}
+.upvotes {
+    display: inline-block;
+    //background-color: rgb(80, 200, 80);
+    background-color: #16C67A;
+    height: 100%;
+}
+.downvotes {
+    display: inline-block;
+    //background-color: rgb(200, 80, 80);
+    background-color: #CCC;
+    height: 100%;
+    margin-left: -4px;
+}
+.btn:focus, .btn:active, .btn::-moz-focus-inner {
+    /* remove the dotted outline around buttons */
+    outline: none;
+}
+#newPostModal input[type="text"] {
+    width: 50%;
+}
+.fb-icon {
+    width: 20px;
+    border-radius: 3px;
+    margin-right: 3px;
+    position: relative;
+    transform: translateY(-2px);
+}
+.food-post {
+    margin-bottom: 0;
+}
+.food-pic {
+    max-width: 200px;
+    max-height: 200px;
+    margin-left: 15px;
+}
+.modal-footer-info {
+    margin-top: 7px;
+    color: #999;
+}
+.top-right .dropdown-menu {
+    margin-top: 5px;
+}
+.top-right .dropdown-menu::after {
+    /* This is taken from bootstrap to add a little white up arrow pointing
+       to the user profile icon */
+    position: absolute;
+    top: -6px;
+    right: 17px;
+    display: inline-block;
+    /*border-right: 6px solid transparent;
+    border-bottom: 6px solid white;
+    border-left: 6px solid transparent;*/
+    content: '';
+    width: 9px;
+    height: 9px;
+    transform: rotate(45deg) translateY(2px);
+    border-radius: 1px;
+    border-left: 1px solid rgba(0, 0, 0, 0.15);
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: #FFF;
+}
