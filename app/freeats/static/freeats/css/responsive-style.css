@@ -1,0 +1,27 @@
+@media screen and (max-width: 1000px) {
+
+	.top-right {
+		padding: 1em;
+	}
+	.bottom-right {
+		padding: 1em;
+	}
+	.bottom-right button {
+		border-radius: 50%;
+		width: 45px;
+		height: 45px;
+		border: none;
+	}
+	.bottom-right button .text {
+		display: none;
+	}
+
+}
+
+@media screen and (max-width: 480px) {
+
+	.item-panel {
+		width: 100%;
+	}
+
+}
