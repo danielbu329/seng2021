@@ -14,9 +14,12 @@
   </head>
   <body ng-controller="MainCtrl">
     <div class="map"></div>
+    <div class="mobile-top-bar"></div>
     <div class="item-panel">
-      <img src="{% static 'freeats/logo_side.png' %}">
-      <div class="indent">
+      <div class="indent freeats-title">
+        <img src="{% static 'freeats/logo_side.png' %}">
+      </div>
+      <div class="indent items">
         <input type="text" placeholder="Search" />
         <div ng-repeat="item in foodCollection">
           <div class="item" ng-click="showFoodDetail($event, item.id)">
