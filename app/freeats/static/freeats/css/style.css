@@ -12,63 +12,47 @@ body {
     top: 50%;
     transform: translateY(-50%);
 }
-.left {
+.btn:focus, .btn:active, .btn::-moz-focus-inner {
+    /* remove the dotted outline around buttons */
+    outline: none;
+}
+
+
+
+/*****************************
+ ***** Google maps stuff *****
+ *****************************/
+
+.map {
+    height: 100%;
+}
+
+
+
+/*****************************
+ ***** Item panel stuff ******
+ *****************************/
+
+.item-panel {
     position: fixed;
     top: 0;
     left: 0;
-    width: 33%;
+    width: 430px;
     height: 100%;
     padding-top: 1em;
     opacity: 0;
 }
-.right {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 67%;
-    height: 100%;
-}
-.map {
-    height: 100%;
-}
-.panel {
-    border-bottom: 1px solid black;
-    padding: 0.5em;
-}
-.indent {
-    padding: 0 2em;
-}
-h1 {
-    margin: 0;
-}
-.left img {
+.item-panel img {
     width: 70%;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
     margin-bottom: 1em;
 }
-.bottom-right {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    padding: 3em 2em;
-    opacity: 0;
+.indent {
+    padding: 0 2em;
 }
-.top-right {
-    position: fixed;
-    top: 0;
-    right: 0;
-    padding: 1em 2em;
-    opacity: 0;
-}
-.top-right img {
-    max-width: 50px;
-    max-height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-input[type="text"] {
+.item-panel input[type="text"] {
     width: 100%;
     font-family: Arial;
     border: 1px solid #666;
@@ -76,7 +60,7 @@ input[type="text"] {
     padding: 5px 3px;
     background-color: rgba(255, 255, 255, 0.85);
 }
-.item {
+.item-panel .item {
     cursor: pointer;
     background-color: rgba(255, 255, 255, 0.85);
     border: 1px solid #BBB;
@@ -86,10 +70,10 @@ input[type="text"] {
     margin-bottom: 1em;
     box-shadow: 5px 5px 3px #888;
 }
-.item:hover {
+.item-panel .item:hover {
     background-color: rgba(230, 230, 230, 0.85);
 }
-.letter {
+.item .letter {
     float: left;
     border: 1px solid #BBB;
     width: 3.5em;
@@ -97,7 +81,7 @@ input[type="text"] {
     text-align: center;
     font-weight: bold;
 }
-.title {
+.item .title {
     float: left;
     border: 1px solid #BBB;
     border-left: none;
@@ -106,7 +90,7 @@ input[type="text"] {
     height: 1.75em;
     padding-left: 0.5em;
 }
-.location {
+.item .location {
     float: left;
     border: 1px solid #BBB;
     border-left: none;
@@ -115,6 +99,33 @@ input[type="text"] {
     height: 1.75em;
     padding-left: 0.5em;
 }
+.item .bar {
+    display: inline-block;
+    float: left;
+    margin-top: 0.5em;
+    height: 3px;
+    width: 100%;
+}
+.bar .upvotes {
+    display: inline-block;
+    //background-color: rgb(80, 200, 80);
+    background-color: #16C67A;
+    height: 100%;
+}
+.bar .downvotes {
+    display: inline-block;
+    //background-color: rgb(200, 80, 80);
+    background-color: #CCC;
+    height: 100%;
+    margin-left: -4px;
+}
+
+
+
+/*****************************
+ ******* Vote buttons ********
+ *****************************/
+
 .voteBtn {
     float: left;
     width: 1.75em;
@@ -130,20 +141,6 @@ input[type="text"] {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-}
-.voteBtn-group {
-    border: 1px solid #BBB;
-    border-radius: 3px;
-}
-.voteBtn-group .voteBtn {
-    border: none;
-}
-.voteBtn-group .voteBtn.up {
-    border-right: 1px solid #BBB;
-    border-radius: 3px 0 0 3px;
-}
-.voteBtn-group .voteBtn.down {
-    border-radius: 0 3px 3px 0;
 }
 .voteBtn.up {
 
@@ -163,51 +160,39 @@ input[type="text"] {
 .voteBtn.down.selected {
     background-color: rgba(255, 120, 120, 0.85);
 }
-.bar {
-    display: inline-block;
-    float: left;
-    margin-top: 0.5em;
-    height: 3px;
-    width: 100%;
-}
-.upvotes {
-    display: inline-block;
-    //background-color: rgb(80, 200, 80);
-    background-color: #16C67A;
-    height: 100%;
-}
-.downvotes {
-    display: inline-block;
-    //background-color: rgb(200, 80, 80);
-    background-color: #CCC;
-    height: 100%;
-    margin-left: -4px;
-}
-.btn:focus, .btn:active, .btn::-moz-focus-inner {
-    /* remove the dotted outline around buttons */
-    outline: none;
-}
-#newPostModal input[type="text"] {
-    width: 50%;
-}
-.fb-icon {
-    width: 20px;
+.voteBtn-group {
+    border: 1px solid #BBB;
     border-radius: 3px;
-    margin-right: 3px;
-    position: relative;
-    transform: translateY(-2px);
 }
-.food-post {
-    margin-bottom: 0;
+.voteBtn-group .voteBtn {
+    border: none;
 }
-.food-pic {
-    max-width: 200px;
-    max-height: 200px;
-    margin-left: 15px;
+.voteBtn-group .voteBtn.up {
+    border-right: 1px solid #BBB;
+    border-radius: 3px 0 0 3px;
 }
-.modal-footer-info {
-    margin-top: 7px;
-    color: #999;
+.voteBtn-group .voteBtn.down {
+    border-radius: 0 3px 3px 0;
+}
+
+
+
+/*****************************
+ **** Profile icon stuff *****
+ *****************************/
+
+.top-right {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 1em 2em;
+    opacity: 0;
+}
+.top-right img {
+    max-width: 50px;
+    max-height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 .top-right .dropdown-menu {
     margin-top: 5px;
@@ -230,4 +215,47 @@ input[type="text"] {
     border-left: 1px solid rgba(0, 0, 0, 0.15);
     border-top: 1px solid rgba(0, 0, 0, 0.15);
     background-color: #FFF;
+}
+
+
+
+/*****************************
+ **** Bottom right stuff *****
+ *****************************/
+
+.bottom-right {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 3em 2em;
+    opacity: 0;
+}
+
+
+
+/*****************************
+ ******** Modal stuff ********
+ *****************************/
+
+#newPostModal input[type="text"] {
+    width: 50%;
+}
+.fb-icon {
+    width: 20px;
+    border-radius: 3px;
+    margin-right: 3px;
+    position: relative;
+    transform: translateY(-2px);
+}
+.food-post {
+    margin-bottom: 0;
+}
+.food-pic {
+    max-width: 200px;
+    max-height: 200px;
+    margin-left: 15px;
+}
+.modal-footer-info {
+    margin-top: 7px;
+    color: #999;
 }
