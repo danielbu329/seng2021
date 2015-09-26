@@ -1,9 +1,10 @@
 define('map', [
   'jquery',
   'lib/google.maps',
-  'MainCtrl'
+  'MainCtrl',
+  'eventBus'
 ],
-function ($, google, MainCtrl) {
+function ($, google, MainCtrl, eventBus) {
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var labelIndex = 0;
   var globeLawn = { lat: -33.917970, lng: 151.231202};
@@ -11,11 +12,19 @@ function ($, google, MainCtrl) {
   var libaryLawn = {lat: -33.916785, lng: 151.233555};
   var physicsLawn = {lat: -33.919068, lng: 151.229847};
   var mainWalkway = {lat: -33.917521, lng: 151.228371};
+  var selectedLocation = unsw;
+
+  var locations = {
+    'Main Walkway': mainWalkway,
+    'Library lawn': libaryLawn,
+    'Physics lawn': physicsLawn,
+    'Globe lawn': globeLawn
+  }
 
   $($('.map')[0]).css({ opacity: 0 });
   var map = new google.maps.Map($('.map')[0], {
     center: unsw,
-    zoom: 17,
+    zoom: 16,
     disableDefaultUI: true,
     scrollwheel: false
   });
@@ -38,22 +47,46 @@ function ($, google, MainCtrl) {
     $($('.map')[0]).fadeTo(400, 1);
     setTimeout(MainCtrl.show, 200);
     window.setTimeout( function() {
-      addMarker(globeLawn, map);
+      addMarker(mainWalkway, map);
       addMarker(libaryLawn, map);
       addMarker(physicsLawn, map);
-      addMarker(mainWalkway, map);
+      addMarker(globeLawn, map);
     }, 500);
   });
 
-  map.addListener('center_changed', function() {
-    window.setTimeout(function() {
-      map.panTo(unsw);
-    }, 500);
+  var calculateXOffset = function () {
+    if ($(window).width() > 860)
+      return -1 * ($('.item-panel').width()/2 - 60);
+    else
+      return 0;
+  };
+
+  var calculateYOffset = function () {
+    if ($(window).width() <= 860)
+      return -1 * ($('.mobile-top-bar').height()/2);
+    else
+      return 0;
+  };
+
+  eventBus.on('showFoodOnMap', function (location) {
+    selectedLocation = locations[location];
+    map.setZoom(18);
+    map.setCenter(selectedLocation);
+    map.panBy(calculateXOffset(), calculateYOffset());
   });
 
+  eventBus.on('showMapOverview', function () {
+    selectedLocation = unsw;
+    map.setZoom(16);
+    map.setCenter(selectedLocation);
+    map.panBy(calculateXOffset(), calculateYOffset());
+  });
 
-
-
+  setInterval(function () {
+    var offsetX = calculateXOffset();
+    map.setCenter(selectedLocation);
+    map.panBy(calculateXOffset(), calculateYOffset());
+  }, 100);
 
   return map;
 });

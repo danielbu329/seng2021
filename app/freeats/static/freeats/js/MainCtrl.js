@@ -1,8 +1,9 @@
 define('MainCtrl', [
   'jquery',
-  'app'
+  'app',
+  'eventBus'
 ],
-function ($, app) {
+function ($, app, eventBus) {
   // Create main controller and attach it to the angular app
   app.controller(
     'MainCtrl',
@@ -19,8 +20,44 @@ function ($, app) {
         return item;
       }
       $scope.showFoodDetail = function ($event, id) {
+        $event.stopImmediatePropagation();
         $scope.currentItem = getItemById(id);
         $('#foodDetailModal').modal();
+      };
+      $scope.showFoodOnMap = function ($event, id) {
+        $scope.currentItem = getItemById(id);
+        if ($scope.toggleMapOverview) {
+          eventBus.emit('showMapOverview');
+          $scope.toggleMapOverview = false;
+        } else {
+          eventBus.emit('showFoodOnMap', $scope.currentItem.location);
+          $scope.toggleMapOverview = true;
+
+          // Mobile UI handling
+          if ($(window).width() <= 860) {
+            var items = $('.item-panel .item');
+            items.each(function (index, element) {
+              $(element).slideUp(500);
+            });
+
+            setTimeout(function () {
+              $('.mobile-back-button')
+                .css({ display: 'inline-block' })
+                .hide()
+                .fadeIn(400);
+            }, 500);
+          }
+        }
+      };
+      $scope.mobileBackButton = function () {
+        eventBus.emit('showMapOverview');
+        $scope.toggleMapOverview = false;
+
+        $('.mobile-back-button').hide();
+        var items = $('.item-panel .item');
+        items.each(function (index, element) {
+          $(element).slideDown(500);
+        });
       };
       $scope.upvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
@@ -73,7 +110,7 @@ function ($, app) {
         {
           id: 4,
           title: 'Pizza',
-          location: 'Main Walkway',
+          location: 'Globe lawn',
           letter: 'D',
           upvotes: '40%',
           downvotes: '60%',
@@ -85,11 +122,12 @@ function ($, app) {
 
   return {
     show: function () {
-      $('.left .item').hide();
-      $('.left').fadeTo(400, 1);
+      $('.item-panel .item').hide();
+      $('.mobile-top-bar').fadeTo(400, 1);
+      $('.item-panel').fadeTo(400, 1);
       $('.top-right').fadeTo(400, 1);
       $('.bottom-right').fadeTo(400, 1);
-      var items = $('.left .item');
+      var items = $('.item-panel .item');
       items.each(function (index, element) {
         $(element).slideDown(500);
       });

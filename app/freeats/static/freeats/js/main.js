@@ -17,11 +17,11 @@ require.config({
 });
 
 require([
+  'map',
   'bootstrap',
   'angular',
   'app',
-  'MainCtrl',
-  'map'
+  'MainCtrl'
 ], function () {
   console.info('Initializing freeats...');
   angular.bootstrap(document, ['freeats']);
