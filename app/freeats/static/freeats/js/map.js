@@ -1,9 +1,10 @@
 define('map', [
   'jquery',
   'lib/google.maps',
-  'MainCtrl'
+  'MainCtrl',
+  'eventBus'
 ],
-function ($, google, MainCtrl) {
+function ($, google, MainCtrl, eventBus) {
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var labelIndex = 0;
   var globeLawn = { lat: -33.917970, lng: 151.231202};
@@ -11,6 +12,7 @@ function ($, google, MainCtrl) {
   var libaryLawn = {lat: -33.916785, lng: 151.233555};
   var physicsLawn = {lat: -33.919068, lng: 151.229847};
   var mainWalkway = {lat: -33.917521, lng: 151.228371};
+  var selectedLocation = unsw;
 
   $($('.map')[0]).css({ opacity: 0 });
   var map = new google.maps.Map($('.map')[0], {
@@ -45,15 +47,28 @@ function ($, google, MainCtrl) {
     }, 500);
   });
 
-  map.addListener('center_changed', function() {
-    window.setTimeout(function() {
-      map.panTo(unsw);
-    }, 500);
+  eventBus.on('showFoodOnMap', function (location) {
+    var offsetX = -1 * ($('.item-panel').width()/2 - 60);
+    //selectedLocation = translateLatLng(selectedLocation, offsetX, 0);
+    selectedLocation = libaryLawn;
+    map.setZoom(18);
+    map.setCenter(selectedLocation);
+    map.panBy(offsetX, 0);
   });
 
+  eventBus.on('showMapOverview', function () {
+    var offsetX = -1 * ($('.item-panel').width()/2 - 60);
+    selectedLocation = unsw;
+    map.setZoom(16);
+    map.setCenter(selectedLocation);
+    map.panBy(offsetX, 0);
+  });
 
-
-
+  setInterval(function () {
+    var offsetX = -1 * ($('.item-panel').width()/2 - 60);
+    map.setCenter(selectedLocation);
+    map.panBy(offsetX, 0);
+  }, 100);
 
   return map;
 });

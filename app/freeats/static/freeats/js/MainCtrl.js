@@ -1,8 +1,9 @@
 define('MainCtrl', [
   'jquery',
-  'app'
+  'app',
+  'eventBus'
 ],
-function ($, app) {
+function ($, app, eventBus) {
   // Create main controller and attach it to the angular app
   app.controller(
     'MainCtrl',
@@ -19,8 +20,19 @@ function ($, app) {
         return item;
       }
       $scope.showFoodDetail = function ($event, id) {
+        $event.stopImmediatePropagation();
         $scope.currentItem = getItemById(id);
         $('#foodDetailModal').modal();
+      };
+      $scope.showFoodOnMap = function ($event, id) {
+        $scope.currentItem = getItemById(id);
+        if ($scope.toggleMapOverview) {
+          eventBus.emit('showMapOverview');
+          $scope.toggleMapOverview = false;
+        } else {
+          eventBus.emit('showFoodOnMap', 'test');
+          $scope.toggleMapOverview = true;
+        }
       };
       $scope.upvote = function ($event, itemId) {
         $event.stopImmediatePropagation();

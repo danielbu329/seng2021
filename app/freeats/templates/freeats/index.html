@@ -21,12 +21,16 @@
       </div>
       <div class="indent items">
         <div ng-repeat="item in foodCollection">
-          <div class="item" ng-click="showFoodDetail($event, item.id)">
+          <div class="item" ng-click="showFoodOnMap($event, item.id)">
             <div class="letter">
               <span class="middle" ng-bind="item.letter"></span>
             </div>
             <div class="title">
               <span class="middle" ng-bind="item.title"></span>
+              <div class="info-btn middle pull-right"
+                    ng-click="showFoodDetail($event, item.id)">
+                <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              </div>
             </div>
             <div class="voteBtn up" ng-class="{'selected': item.vote == 'up'}"
                   ng-click="upvote($event, item.id)">

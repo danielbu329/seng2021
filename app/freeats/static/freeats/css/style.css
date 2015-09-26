@@ -104,6 +104,10 @@ body {
     height: 1.75em;
     padding-left: 0.5em;
 }
+.item .info-btn {
+    margin-right: 5px;
+    cursor: pointer;
+}
 .item .bar {
     display: inline-block;
     float: left;
