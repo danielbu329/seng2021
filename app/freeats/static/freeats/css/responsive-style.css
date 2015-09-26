@@ -16,6 +16,13 @@
 		font-size: 45px;
 		cursor: pointer;
 	}
+	.mobile-back-button span.glyphicon {
+		width: 35px;
+		height: 35px;
+		border-radius: 50%;
+		background-color: #FFF;
+
+	}
 	.items {
 		margin-top: calc(50px + 2em);
 	}
