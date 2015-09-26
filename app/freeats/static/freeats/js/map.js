@@ -14,10 +14,17 @@ function ($, google, MainCtrl, eventBus) {
   var mainWalkway = {lat: -33.917521, lng: 151.228371};
   var selectedLocation = unsw;
 
+  var locations = {
+    'Main Walkway': mainWalkway,
+    'Library lawn': libaryLawn,
+    'Physics lawn': physicsLawn,
+    'Globe lawn': globeLawn
+  }
+
   $($('.map')[0]).css({ opacity: 0 });
   var map = new google.maps.Map($('.map')[0], {
     center: unsw,
-    zoom: 17,
+    zoom: 16,
     disableDefaultUI: true,
     scrollwheel: false
   });
@@ -40,24 +47,30 @@ function ($, google, MainCtrl, eventBus) {
     $($('.map')[0]).fadeTo(400, 1);
     setTimeout(MainCtrl.show, 200);
     window.setTimeout( function() {
-      addMarker(globeLawn, map);
+      addMarker(mainWalkway, map);
       addMarker(libaryLawn, map);
       addMarker(physicsLawn, map);
-      addMarker(mainWalkway, map);
+      addMarker(globeLawn, map);
     }, 500);
   });
 
+  var calculateXOffset = function () {
+    if ($(window).width() > 860)
+      return -1 * ($('.item-panel').width()/2 - 60);
+    else
+      return 0;
+  };
+
   eventBus.on('showFoodOnMap', function (location) {
-    var offsetX = -1 * ($('.item-panel').width()/2 - 60);
-    //selectedLocation = translateLatLng(selectedLocation, offsetX, 0);
-    selectedLocation = libaryLawn;
+    var offsetX = calculateXOffset();
+    selectedLocation = locations[location];
     map.setZoom(18);
     map.setCenter(selectedLocation);
     map.panBy(offsetX, 0);
   });
 
   eventBus.on('showMapOverview', function () {
-    var offsetX = -1 * ($('.item-panel').width()/2 - 60);
+    var offsetX = calculateXOffset();
     selectedLocation = unsw;
     map.setZoom(16);
     map.setCenter(selectedLocation);
@@ -65,7 +78,7 @@ function ($, google, MainCtrl, eventBus) {
   });
 
   setInterval(function () {
-    var offsetX = -1 * ($('.item-panel').width()/2 - 60);
+    var offsetX = calculateXOffset();
     map.setCenter(selectedLocation);
     map.panBy(offsetX, 0);
   }, 100);

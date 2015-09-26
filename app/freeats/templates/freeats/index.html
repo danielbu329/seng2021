@@ -20,6 +20,9 @@
         <img src="{% static 'freeats/logo_side.png' %}">
       </div>
       <div class="indent items">
+        <div class="mobile-back-button" ng-click="mobileBackButton()">
+          <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"</span>
+        </div>
         <div ng-repeat="item in foodCollection">
           <div class="item" ng-click="showFoodOnMap($event, item.id)">
             <div class="letter">

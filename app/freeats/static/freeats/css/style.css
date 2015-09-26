@@ -269,3 +269,16 @@ body {
     margin-top: 7px;
     color: #999;
 }
+
+
+
+/*****************************
+ ***** Hide mobile stuff *****
+ *****************************/
+
+.mobile-top-bar {
+    display: none;
+}
+.mobile-back-button {
+    display: none;
+}

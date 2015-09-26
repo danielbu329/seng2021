@@ -8,7 +8,13 @@
 		height: calc(50px + 2em);
 		background-color: #EEE;
 		border-bottom: 2px solid rgba(0, 0, 0, 0.15);
+		opacity: 0;
 		z-index: 2;
+	}
+	.mobile-back-button {
+		display: none;
+		font-size: 45px;
+		cursor: pointer;
 	}
 	.items {
 		margin-top: calc(50px + 2em);

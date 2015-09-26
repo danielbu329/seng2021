@@ -30,9 +30,35 @@ function ($, app, eventBus) {
           eventBus.emit('showMapOverview');
           $scope.toggleMapOverview = false;
         } else {
-          eventBus.emit('showFoodOnMap', 'test');
+          eventBus.emit('showFoodOnMap', $scope.currentItem.location);
           $scope.toggleMapOverview = true;
+
+          // Mobile UI handling
+          if ($(window).width() <= 860) {
+            var items = $('.item-panel .item');
+            items.each(function (index, element) {
+              $(element).slideUp(500);
+            });
+
+            setTimeout(function () {
+              $('.mobile-back-button')
+                .hide()
+                .css({ display: 'inline-block' })
+                .fadeIn(400);
+            }, 500);
+          }
         }
+      };
+      $scope.mobileBackButton = function () {
+        eventBus.emit('showMapOverview');
+        $scope.toggleMapOverview = false;
+
+        $('.mobile-back-button').fadeOut(400, function () {
+          var items = $('.item-panel .item');
+          items.each(function (index, element) {
+            $(element).slideDown(500);
+          });
+        });
       };
       $scope.upvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
@@ -85,7 +111,7 @@ function ($, app, eventBus) {
         {
           id: 4,
           title: 'Pizza',
-          location: 'Main Walkway',
+          location: 'Globe lawn',
           letter: 'D',
           upvotes: '40%',
           downvotes: '60%',
@@ -98,6 +124,7 @@ function ($, app, eventBus) {
   return {
     show: function () {
       $('.item-panel .item').hide();
+      $('.mobile-top-bar').fadeTo(400, 1);
       $('.item-panel').fadeTo(400, 1);
       $('.top-right').fadeTo(400, 1);
       $('.bottom-right').fadeTo(400, 1);
