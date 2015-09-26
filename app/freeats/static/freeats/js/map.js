@@ -61,26 +61,31 @@ function ($, google, MainCtrl, eventBus) {
       return 0;
   };
 
+  var calculateYOffset = function () {
+    if ($(window).width() <= 860)
+      return -1 * ($('.mobile-top-bar').height()/2);
+    else
+      return 0;
+  };
+
   eventBus.on('showFoodOnMap', function (location) {
-    var offsetX = calculateXOffset();
     selectedLocation = locations[location];
     map.setZoom(18);
     map.setCenter(selectedLocation);
-    map.panBy(offsetX, 0);
+    map.panBy(calculateXOffset(), calculateYOffset());
   });
 
   eventBus.on('showMapOverview', function () {
-    var offsetX = calculateXOffset();
     selectedLocation = unsw;
     map.setZoom(16);
     map.setCenter(selectedLocation);
-    map.panBy(offsetX, 0);
+    map.panBy(calculateXOffset(), calculateYOffset());
   });
 
   setInterval(function () {
     var offsetX = calculateXOffset();
     map.setCenter(selectedLocation);
-    map.panBy(offsetX, 0);
+    map.panBy(calculateXOffset(), calculateYOffset());
   }, 100);
 
   return map;
