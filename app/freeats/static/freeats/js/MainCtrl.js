@@ -42,8 +42,8 @@ function ($, app, eventBus) {
 
             setTimeout(function () {
               $('.mobile-back-button')
-                .hide()
                 .css({ display: 'inline-block' })
+                .hide()
                 .fadeIn(400);
             }, 500);
           }
@@ -53,11 +53,10 @@ function ($, app, eventBus) {
         eventBus.emit('showMapOverview');
         $scope.toggleMapOverview = false;
 
-        $('.mobile-back-button').fadeOut(400, function () {
-          var items = $('.item-panel .item');
-          items.each(function (index, element) {
-            $(element).slideDown(500);
-          });
+        $('.mobile-back-button').hide();
+        var items = $('.item-panel .item');
+        items.each(function (index, element) {
+          $(element).slideDown(500);
         });
       };
       $scope.upvote = function ($event, itemId) {
