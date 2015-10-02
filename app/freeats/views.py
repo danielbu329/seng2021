@@ -33,4 +33,20 @@ def food(request):
             foodData = serializers.serialize('json', foods)
         return HttpResponse(foodData, content_type='application/json')
     if request.method == "POST":
-        return HttpResponse("recieved post request");
+        titleEntry = request.POST.get('title')
+        locEntry = request.POST.get('location')
+        descrEntry = request.POST.get('description')
+        dateEntry = request.POST.get('date')
+        likeEntry = request.POST.get('likes')
+        dislikeEntry = request.POST.get('dislikes')
+        authEntry = request.POST.get('author')
+        urlEntry = request.POST.get('imgurl')
+        new_entry = Food(title=titleEntry,location=locEntry,description=descrEntry,date=dateEntry,likes=likeEntry,dislikes=dislikeEntry,author=authEntry,imgurl=urlEntry)
+        new_entry.save()
+        return HttpResponse("saved request");
+
+
+
+
+
+
