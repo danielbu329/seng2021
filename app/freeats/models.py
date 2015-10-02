@@ -4,7 +4,6 @@ from django.db import models
 
 class Food(models.Model):
     title = models.CharField(max_length=40)
-    postid = models.IntegerField(default=-1)
     location = models.CharField(max_length=40)
     description = models.CharField("Description of Food", max_length=200)
     date = models.DateField()
