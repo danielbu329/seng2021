@@ -7,12 +7,6 @@ from .models import Food
 def index(request):
     return render(request, 'freeats/index.html', {})
 
-def createpost(request):
-	return render(request, 'freeats/createpost.html', {})
-
-def test(request):
-	return render(request, 'freeats/test.html', {})
-
 # freeats/food 
 # GET returns json
 # Can GET a specific post id using paramter post=<integer>, or no paramter
@@ -49,9 +43,3 @@ def food(request):
         new_entry = Food(title=titleEntry,location=locEntry,description=descrEntry,date=dateEntry,likes=likeEntry,dislikes=dislikeEntry,author=authEntry,imgurl=urlEntry)
         new_entry.save()
         return HttpResponse("saved request");
-
-
-
-
-
-

@@ -7,7 +7,7 @@ function ($, app, eventBus) {
   // Create main controller and attach it to the angular app
   app.controller(
     'MainCtrl',
-    function ($scope, $resource) {
+    function ($scope, $resource, $location, $window) {
       var getItemById = function (id) {
         var item = null;
         for (i in $scope.foodCollection) {
@@ -72,6 +72,12 @@ function ($, app, eventBus) {
       $scope.createPost = function () {
         $('#newPostModal').modal();
       };
+      $scope.myPosts = function () {
+        console.log('here');
+        $location.url('/freeats/me');
+        $location.replace();
+        $window.history.pushState(null, 'any', $location.absUrl());
+      };
 
       $scope.foodCollection = [
         {
@@ -120,8 +126,22 @@ function ($, app, eventBus) {
     }
   );
 
+  var animateLoading = function () {
+    $('.loading img').animate({
+      top: '-50px'
+    }, 300, function () {
+      $('.loading img').animate({
+        top: 0
+      }, 200);
+    });
+  };
+  animateLoading();
+  var intervalId = setInterval(animateLoading, 700);
+
   return {
     show: function () {
+      clearInterval(intervalId);
+      $('.loading').hide();
       $('.item-panel .item').hide();
       $('.mobile-top-bar').fadeTo(400, 1);
       $('.item-panel').fadeTo(400, 1);

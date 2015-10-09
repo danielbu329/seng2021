@@ -4,7 +4,7 @@ html, body {
 }
 body {
     height: 100%;
-    background-color: rgb(240, 110, 0);
+    background-color: rgb(240, 90, 0);
 }
 .middle {
     display: inline-block;
@@ -15,6 +15,26 @@ body {
 .btn:focus, .btn:active, .btn::-moz-focus-inner {
     /* remove the dotted outline around buttons */
     outline: none;
+}
+
+
+
+/*****************************
+ ****** Loading splash *******
+ *****************************/
+
+.loading {
+    text-align: center;
+    height: 100%;
+}
+.loading div {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.loading img {
+    width: 30%;
+    position: relative;
 }
 
 

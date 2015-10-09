@@ -11,8 +11,15 @@
       href="{% static 'freeats/css/responsive-style.css' %}" />
     <script type="text/javascript" data-main="{% static 'freeats/js/main.js' %}"
       src="{% static 'freeats/js/lib/require-2.1.20.min.js' %}"></script>
+    <base href="/freeats">
   </head>
   <body ng-controller="MainCtrl">
+    <div class="loading">
+      <div>
+        <!--<img src="{% static 'freeats/marker_only_white.png' %}">-->
+        <img src="{% static 'freeats/logo_only_white.png' %}">
+      </div>
+    </div>
     <div class="map"></div>
     <div class="mobile-top-bar"></div>
     <div class="item-panel">
@@ -37,14 +44,14 @@
             </div>
             <div class="voteBtn up" ng-class="{'selected': item.vote == 'up'}"
                   ng-click="upvote($event, item.id)">
-              <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
             </div>
             <div class="location">
               <span class="middle" ng-bind="item.location"></span>
             </div>
             <div class="voteBtn down" ng-class="{'selected': item.vote == 'down'}"
                   ng-click="downvote($event, item.id)">
-              <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
             </div>
             <div class="bar">
               <span class="upvotes" ng-style="{ 'width': item.upvotes }">&nbsp;</span>
@@ -60,7 +67,7 @@
         <img src="{% static 'freeats/profile.jpg' %}"
               id="userDropdown" data-toggle="dropdown">
         <ul class="dropdown-menu pull-right" aria-labelledby="userDropdown">
-          <li><a href="#">My Posts</a></li>
+          <li ng-click="myPosts()"><a href="">My Posts</a></li>
           <li><a href="#">Settings</a></li>
           <li><a href="#">Logout</a></li>
         </ul>
@@ -93,12 +100,12 @@
               <div class="voteBtn up"
                     ng-class="{'selected': currentItem.vote == 'up'}"
                     ng-click="upvote($event, currentItem.id)">
-                <span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
               </div>
               <div class="voteBtn down"
                     ng-class="{'selected': currentItem.vote == 'down'}"
                     ng-click="downvote($event, currentItem.id)">
-                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
               </div>
             </div>
             <p>
