@@ -1,11 +1,9 @@
 define('app', [
   'angular',
+  'ngRoute',
   'ngResource'
 ],
 function (angular) {
-  var app = angular.module('freeats', ['ngResource']);
-  /*app.config(function ($locationProvider) {
-    $locationProvider.html5Mode(true).hashPrefix('!');
-  });*/
+  var app = angular.module('freeats', ['ngRoute', 'ngResource']);
   return app;
 });

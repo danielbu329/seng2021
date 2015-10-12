@@ -2,13 +2,17 @@ define('appConfig', [
   'app'
 ],
 function (app) {
-  console.log('config stuff', app.config);
-  app.config(function ($locationProvider) {
+  app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
-    /*$routeProvider
+    $routeProvider
+      .when('/freeats', {
+        templateUrl: '/static/freeats/home.html',
+        controller: 'HomeCtrl'
+      })
       .when('/freeats/me', {
-        templateUrl: '/freeats/index.html',
-        controller: 'MainCtrl'
-      });*/
+        templateUrl: '/static/freeats/myposts.html',
+        controller: 'MyPostsCtrl'
+      })
+      .otherwise({ 'redirectTo': '/freeats' });
   });
 });
