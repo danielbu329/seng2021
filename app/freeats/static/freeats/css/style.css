@@ -308,3 +308,58 @@ div[ng-view] {
 .mobile-back-button {
     display: none;
 }
+
+
+
+/*****************************
+ ******* My posts page *******
+ *****************************/
+
+.my-posts-header {
+    text-align: center;
+    padding-top: 1em;
+    opacity: 0;
+}
+.my-posts-header img {
+    width: 300px;
+}
+.my-posts-content {
+    margin-top: 1em;
+    text-align: center;
+    opacity: 0;
+}
+.my-posts-content img {
+    width: 200px;
+    border-radius: 50%;
+}
+.my-posts-content .box {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid #BBB;
+    padding: 10px 50px;
+    width: 820px;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    box-shadow: 5px 5px 3px #888;
+}
+.my-posts-content table {
+    width: 100%;
+}
+.my-posts-content table tr:first-child td {
+    border: none;
+}
+.my-posts-content td {
+    vertical-align: middle !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+.my-posts-content h4 {
+    display: inline-block;
+    margin: 0;
+}
+.my-posts-content h4.description {
+    font-weight: normal;
+    margin-right: 5px;
+}

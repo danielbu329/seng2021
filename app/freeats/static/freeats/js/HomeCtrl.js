@@ -141,7 +141,7 @@ function ($, app, eventBus) {
       eventBus.on('mapLoaded', function () {
         $rootScope.mapLoaded = true;
         eventBus.emit('showMap');
-      })
+      });
       eventBus.on('showHomeCtrl', function () {
         clearInterval(intervalId);
         $('.loading').hide();
