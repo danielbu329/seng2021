@@ -3,7 +3,7 @@
 </div>
 <div class="my-posts-content">
   <p>
-    <img src="/static/freeats/profile.jpg">
+    <img ng-src="http://graph.facebook.com/v2.5/{{$root.fbUserId}}/picture?type=large">
   </p>
   <p>
     <button class="btn btn-success">
@@ -41,13 +41,19 @@
   </div>
 </div>
 <div class="top-right">
-  <div class="dropdown">
-    <img src="/static/freeats/profile.jpg"
+  <div class="dropdown" ng-show="$root.loggedIn">
+    <img class="profile-icon" ng-src="http://graph.facebook.com/v2.5/{{$root.fbUserId}}/picture"
           id="userDropdown" data-toggle="dropdown">
     <ul class="dropdown-menu pull-right" aria-labelledby="userDropdown">
       <li><a href="/freeats/me">My Posts</a></li>
       <li><a href="/freeats/settings">Settings</a></li>
-      <li><a href="#">Logout</a></li>
+      <li><a href="" ng-click="logoutFacebook()">Logout</a></li>
     </ul>
+  </div>
+  <div class="facebook-login" ng-show="!$root.loggedIn">
+    <button class="btn btn-facebook" ng-click="loginFacebook()">
+      <img src="https://www.facebookbrand.com/img/assets/asset.f.logo.lg.png">
+      Log in with Facebook
+    </button>
   </div>
 </div>

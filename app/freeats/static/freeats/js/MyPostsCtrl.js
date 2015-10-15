@@ -1,18 +1,76 @@
 define('MyPostsCtrl', [
   'jquery',
   'app',
-  'eventBus'
+  'eventBus',
+  'facebook'
 ],
-function ($, app, eventBus) {
+function ($, app, eventBus, FB) {
   app.controller(
     'MyPostsCtrl',
     function ($rootScope, $scope, $resource) {
       console.log('MyPostsCtrl');
       $rootScope.currentView = 'myposts';
+      $rootScope.loggedIn = false;
+
+      FB.getLoginStatus(function (res) {
+        console.log(res);
+        // Force angular to re-evaluate
+        setTimeout(function () {
+          $rootScope.$apply(function () {
+            if (res.status == 'connected') {
+              // Logged into Freeats and Facebook
+              $rootScope.loggedIn = true;
+              $rootScope.fbAccessToken = res.authResponse.accessToken;
+              $rootScope.fbUserId = res.authResponse.userID;
+            } else if (res.status == 'not_authorized') {
+              // Not logged into Freeats, but is logged into Facebook
+              $rootScope.loggedIn = false;
+            } else {
+              // Not logged into Freeats nor Facebook
+            }
+          });
+        });
+      });
+
       /*eventBus.on('mapLoaded', function () {
         $rootScope.mapLoaded = true;
       });*/
       eventBus.emit('showMyPostsCtrl');
+      $scope.loginFacebook = function () {
+        FB.getLoginStatus(function (res) {
+          if (res.status == 'connected') {
+            // Logged into Freeats and Facebook
+            $rootScope.loggedIn = true;
+            $rootScope.fbAccessToken = res.authResponse.accessToken;
+            $rootScope.fbUserId = res.authResponse.userID;
+          } else {
+            // Not logged into Freeats nor Facebook
+            FB.login(function (res) {
+              console.log(res);
+              setTimeout(function () {
+                $rootScope.$apply(function () {
+                  if (res.status == 'connected') {
+                    $rootScope.loggedIn = true;
+                    $rootScope.fbAccessToken = res.authResponse.accessToken;
+                    $rootScope.fbUserId = res.authResponse.userID;
+                  }
+                });
+              });
+            });
+          }
+        });
+      };
+      $scope.logoutFacebook = function () {
+        FB.getLoginStatus(function (res) {
+          if (res.status == 'connected') {
+            // Logged into Freeats and Facebook
+            $rootScope.loggedIn = false;
+            FB.logout(function (res) {
+              console.log(res);
+            });
+          }
+        });
+      };
 
       $scope.myPosts = [
         {
