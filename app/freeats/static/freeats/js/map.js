@@ -1,10 +1,9 @@
 define('map', [
   'jquery',
   'lib/google.maps',
-  'MainCtrl',
   'eventBus'
 ],
-function ($, google, MainCtrl, eventBus) {
+function ($, google, eventBus) {
   var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   var labelIndex = 0;
   var globeLawn = { lat: -33.917970, lng: 151.231202};
@@ -21,6 +20,7 @@ function ($, google, MainCtrl, eventBus) {
     'Globe lawn': globeLawn
   }
 
+  $($('.map')[0]).css({ display: 'block' });
   $($('.map')[0]).css({ opacity: 0 });
   var map = new google.maps.Map($('.map')[0], {
     center: unsw,
@@ -44,9 +44,15 @@ function ($, google, MainCtrl, eventBus) {
 
   google.maps.event.addListenerOnce(map, 'tilesloaded', function () {
     console.info('Map loaded');
+    eventBus.emit('mapLoaded');
+  });
+
+  eventBus.on('showMap', function () {
     $($('.map')[0]).fadeTo(400, 1);
-    setTimeout(MainCtrl.show, 200);
-    window.setTimeout( function() {
+    setTimeout(function () {
+      eventBus.emit('showHomeCtrl');
+    }, 200);
+    setTimeout( function() {
       addMarker(mainWalkway, map);
       addMarker(libaryLawn, map);
       addMarker(physicsLawn, map);
@@ -82,11 +88,18 @@ function ($, google, MainCtrl, eventBus) {
     map.panBy(calculateXOffset(), calculateYOffset());
   });
 
-  setInterval(function () {
-    var offsetX = calculateXOffset();
-    map.setCenter(selectedLocation);
-    map.panBy(calculateXOffset(), calculateYOffset());
-  }, 100);
+  var setupMapCentering = function () {
+    return setInterval(function () {
+      var offsetX = calculateXOffset();
+      map.setCenter(selectedLocation);
+      map.panBy(calculateXOffset(), calculateYOffset());
+    }, 100);
+  };
+  var intervalId = setupMapCentering();
+
+  eventBus.on('showMyPostsCtrl', function () {
+    clearInterval(intervalId);
+  });
 
   return map;
 });

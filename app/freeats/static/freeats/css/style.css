@@ -4,7 +4,12 @@ html, body {
 }
 body {
     height: 100%;
-    background-color: rgb(240, 110, 0);
+}
+body.homeView {
+    background-color: rgb(240, 90, 0);
+}
+div[ng-view] {
+    height: 100%;
 }
 .middle {
     display: inline-block;
@@ -20,6 +25,26 @@ body {
 
 
 /*****************************
+ ****** Loading splash *******
+ *****************************/
+
+.loading {
+    text-align: center;
+    height: 100%;
+}
+.loading div {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.loading img {
+    width: 30%;
+    position: relative;
+}
+
+
+
+/*****************************
  ***** Google maps stuff *****
  *****************************/
 
@@ -30,6 +55,7 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
+    display: none;
 }
 
 
@@ -281,4 +307,72 @@ body {
 }
 .mobile-back-button {
     display: none;
+}
+
+
+
+/*****************************
+ ******* My posts page *******
+ *****************************/
+
+.my-posts-header {
+    text-align: center;
+    padding-top: 1em;
+    opacity: 0;
+}
+.my-posts-header img {
+    width: 300px;
+}
+.my-posts-content {
+    margin-top: 1em;
+    margin-bottom: 4em;
+    text-align: center;
+    opacity: 0;
+}
+.my-posts-content img {
+    width: 200px;
+    border-radius: 50%;
+}
+.my-posts-content .box {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid #BBB;
+    padding: 10px 50px;
+    width: 820px;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
+    box-shadow: 5px 5px 3px #888;
+}
+.my-posts-content table {
+    width: 100%;
+}
+.my-posts-content table tr:first-child td {
+    border: none;
+}
+.my-posts-content td {
+    vertical-align: middle !important;
+    padding: 15px 20px !important;
+}
+.my-posts-content td:nth-child(1) {
+    text-align: left;
+}
+.my-posts-content td:nth-child(2) {
+    text-align: right;
+}
+.my-posts-content h4 {
+    display: inline-block;
+    margin: 0;
+    overflow: hidden;
+}
+.my-posts-content h4.truncate {
+    display: inline-block;
+    max-width: 380px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.my-posts-content h4 span {
+    font-weight: normal;
 }

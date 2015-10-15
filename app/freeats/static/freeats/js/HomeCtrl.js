@@ -1,4 +1,4 @@
-define('MainCtrl', [
+define('HomeCtrl', [
   'jquery',
   'app',
   'eventBus'
@@ -6,8 +6,10 @@ define('MainCtrl', [
 function ($, app, eventBus) {
   // Create main controller and attach it to the angular app
   app.controller(
-    'MainCtrl',
-    function ($scope, $resource) {
+    'HomeCtrl',
+    function ($rootScope, $scope, $resource, $location, $window) {
+      console.log('HomeCtrl');
+      $rootScope.currentView = 'home';
       var getItemById = function (id) {
         var item = null;
         for (i in $scope.foodCollection) {
@@ -117,20 +119,43 @@ function ($, app, eventBus) {
           vote: 'down'
         }
       ];
+
+      var animateLoading = function () {
+        $('.loading img').animate({
+          top: '-50px'
+        }, 300, function () {
+          $('.loading img').animate({
+            top: 0
+          }, 200);
+        });
+      };
+      var intervalId;
+      if (!($rootScope.mapLoaded)) {
+        animateLoading();
+        intervalId = setInterval(animateLoading, 700);
+      } else {
+        $($('.map')[0]).fadeTo(400, 1);
+        eventBus.emit('showHomeCtrl');
+      }
+
+      eventBus.on('mapLoaded', function () {
+        $rootScope.mapLoaded = true;
+        eventBus.emit('showMap');
+      });
+      eventBus.on('showHomeCtrl', function () {
+        clearInterval(intervalId);
+        $('.loading').hide();
+        $('.item-panel .item').hide();
+        $('.mobile-top-bar').fadeTo(400, 1);
+        $('.item-panel').fadeTo(400, 1);
+        $('.top-right').fadeTo(400, 1);
+        $('.bottom-right').fadeTo(400, 1);
+        var items = $('.item-panel .item');
+        items.each(function (index, element) {
+          $(element).slideDown(500);
+        });
+      });
+
     }
   );
-
-  return {
-    show: function () {
-      $('.item-panel .item').hide();
-      $('.mobile-top-bar').fadeTo(400, 1);
-      $('.item-panel').fadeTo(400, 1);
-      $('.top-right').fadeTo(400, 1);
-      $('.bottom-right').fadeTo(400, 1);
-      var items = $('.item-panel .item');
-      items.each(function (index, element) {
-        $(element).slideDown(500);
-      });
-    }
-  };
 });
