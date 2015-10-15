@@ -44,3 +44,18 @@ def food(request):
         new_entry = Food(title=titleEntry,location=locEntry,description=descrEntry,date=dateEntry,likes=likeEntry,dislikes=dislikeEntry,author=authEntry,imgurl=urlEntry)
         new_entry.save()
         return HttpResponse("saved request");
+
+# freeats/vote
+# POST
+def vote(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        if 'postId' in data and Food.objects.filter(id=data['postId']).exists():
+            item = Food.objects.get(id=data['postId'])
+            if 'vote' in data:
+                if data['vote'] == 'up':
+                    item.likes += 1
+                elif data['vote'] == 'down':
+                    item.dislikes += 1
+                item.save()
+        return HttpResponse("saved vote");

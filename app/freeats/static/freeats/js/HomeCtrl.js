@@ -61,15 +61,22 @@ function ($, app, eventBus) {
           $(element).slideDown(500);
         });
       };
+      var Vote = $resource('/freeats/vote');
       $scope.upvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
         getItemById(itemId).vote = 'up';
-        // Make and PUT HTTP request to update the vote for current food item
+        Vote.save({ postId: itemId, vote: 'up' }, function () {
+          console.info('Vote saved');
+          $scope.updateFoodList();
+        });
       };
       $scope.downvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
         getItemById(itemId).vote = 'down';
-        // Make and PUT HTTP request to update the vote for current food item
+        Vote.save({ postId: itemId, vote: 'down' }, function () {
+          console.info('Vote saved');
+          $scope.updateFoodList();
+        });
       };
       $scope.createPost = function () {
         $('#newPostModal').modal();
@@ -101,8 +108,8 @@ function ($, app, eventBus) {
             food.downvotes = '100%';
             var totalVotes = food.likes + food.dislikes;
             if (totalVotes > 0) {
-              food.upvotes = (food.likes / totalVotes) + '%';
-              food.downvotes = (food.dislikes / totalVotes) + '%';
+              food.upvotes = (food.likes / totalVotes)*100 + '%';
+              food.downvotes = (food.dislikes / totalVotes)*100 + '%';
             }
             $scope.foodCollection.push(food);
           }
