@@ -12,6 +12,15 @@
     <div class="mobile-back-button" ng-click="mobileBackButton()">
       <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"</span>
     </div>
+    <div ng-show="foodCollection.length == 0" class="alert alert-info" role="alert">
+      <p>
+        <b>Oh no!</b> There's no free food at UNSW currently.
+      </p>
+      <p>
+        If you're not too hungry, check back here soon and hopefully
+        we can feed your desire for free food!
+      </p>
+    </div>
     <div ng-repeat="item in foodCollection">
       <div class="item" ng-click="showFoodOnMap($event, item.id)">
         <div class="letter">

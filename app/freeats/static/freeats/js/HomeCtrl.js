@@ -78,13 +78,39 @@ function ($, app, eventBus) {
       $scope.submitPost = function () {
         var post = angular.copy($scope.newPost);
         console.log(post);
+        // Need to validate post data still
         Food.save(post, function () {
-          console.log('saved');
+          console.info('Post saved');
+          $('#newPostModal').modal('hide');
+          $scope.newPost = {};
+          $scope.updateFoodList();
         });
-        console.log('something happened');
       };
 
-      $scope.foodCollection = [
+      $scope.updateFoodList = function () {
+        Food.query(function (results) {
+          var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+          $scope.foodCollection = [];
+          for (var i = 0; i < results.length; i++) {
+            var food = results[i].fields;
+            food.id = results[i].pk;
+            food.letter = letters[i % letters.length];
+            food.post = food.description;
+            delete food.description;
+            food.upvotes = '0%';
+            food.downvotes = '100%';
+            var totalVotes = food.likes + food.dislikes;
+            if (totalVotes > 0) {
+              food.upvotes = (food.likes / totalVotes) + '%';
+              food.downvotes = (food.dislikes / totalVotes) + '%';
+            }
+            $scope.foodCollection.push(food);
+          }
+          console.log($scope.foodCollection);
+        });
+      };
+      $scope.updateFoodList();
+      /*$scope.foodCollection = [
         {
           id: 1,
           title: 'Pizza',
@@ -127,7 +153,7 @@ function ($, app, eventBus) {
           downvotes: '60%',
           vote: 'down'
         }
-      ];
+      ];*/
 
       var animateLoading = function () {
         $('.loading img').animate({
