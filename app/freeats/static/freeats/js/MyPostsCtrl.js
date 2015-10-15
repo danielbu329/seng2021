@@ -17,9 +17,9 @@ function ($, app, eventBus) {
       $scope.myPosts = [
         {
           id: 1,
-          title: 'My post 1',
+          title: 'My post 1223123',
           location: 'Main Walkway',
-          description: 'Here is some food'
+          description: 'Here is some foodasasdkjhasdkjhasdkjhasdkjh'
         },
         {
           id: 2,

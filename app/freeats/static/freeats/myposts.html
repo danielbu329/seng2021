@@ -17,8 +17,9 @@
       <tbody>
         <tr class="post" ng-repeat="post in myPosts">
           <td>
-            <h4>{{post.title}} - </h4>
-            <h4 class="description">{{post.description}}</h4>
+            <h4 class="truncate">
+              {{post.title}} - <span>{{post.description}}</span>
+            </h4>
           </td>
           <td>
             <button class="btn btn-default">

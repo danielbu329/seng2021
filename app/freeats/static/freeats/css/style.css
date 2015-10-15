@@ -325,6 +325,7 @@ div[ng-view] {
 }
 .my-posts-content {
     margin-top: 1em;
+    margin-bottom: 4em;
     text-align: center;
     opacity: 0;
 }
@@ -352,14 +353,26 @@ div[ng-view] {
 }
 .my-posts-content td {
     vertical-align: middle !important;
-    padding-top: 15px !important;
-    padding-bottom: 15px !important;
+    padding: 15px 20px !important;
+}
+.my-posts-content td:nth-child(1) {
+    text-align: left;
+}
+.my-posts-content td:nth-child(2) {
+    text-align: right;
 }
 .my-posts-content h4 {
     display: inline-block;
     margin: 0;
+    overflow: hidden;
 }
-.my-posts-content h4.description {
+.my-posts-content h4.truncate {
+    display: inline-block;
+    max-width: 380px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.my-posts-content h4 span {
     font-weight: normal;
-    margin-right: 5px;
 }
