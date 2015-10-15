@@ -3,6 +3,7 @@ require.config({
   paths: {
     jquery: 'lib/jquery-2.1.4.min',
     angular: 'lib/angular-1.4.5.min',
+    ngRoute: 'lib/angular-route-1.4.5.min',
     ngResource: 'lib/angular-resource-1.4.5.min',
     bootstrap: 'lib/bootstrap-3.3.5.min',
     async: 'lib/requirejs-plugins/async',
@@ -11,17 +12,20 @@ require.config({
   shim: {
     jquery: { exports: '$' },
     angular: { exports: 'angular' },
+    ngRoute: { deps: ['angular'] },
     ngResource: { deps: ['angular'] },
     bootstrap: { deps: ['jquery'] }
   }
 });
 
 require([
-  'map',
   'bootstrap',
   'angular',
   'app',
-  'MainCtrl'
+  'HomeCtrl',
+  'MyPostsCtrl',
+  'appConfig',
+  'map'
 ], function () {
   console.info('Initializing freeats...');
   angular.bootstrap(document, ['freeats']);
