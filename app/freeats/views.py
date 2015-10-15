@@ -13,7 +13,12 @@ def createpost(request):
 def test(request):
 	return render(request, 'freeats/test.html', {})
 
-#Pass a param=<model.py Food field>
+# freeats/food 
+# GET returns json
+# Can GET a specific post id using paramter post=<integer>, or no paramter
+#   to get entire list of food
+# POST uses same variable names as model, gets each entry
+# then inserts it into to the database
 def food(request):
     if request.method == "GET":
         param = request.GET.get('post','')
