@@ -32,10 +32,11 @@ def food(request):
             foodData = serializers.serialize('json', foods)
         return HttpResponse(foodData, content_type='application/json')
     if request.method == "POST":
-        titleEntry = request.POST.get('title')
-        locEntry = request.POST.get('location')
-        descrEntry = request.POST.get('description')
-        dateEntry = ''
+        data = json.loads(request.body.decode('utf-8'))
+        titleEntry = data['title'] if 'title' in data else ''
+        locEntry = data['location'] if 'location' in data else ''
+        descrEntry = data['description'] if 'description' in data else ''
+        dateEntry = '2015-10-15'
         likeEntry = 0
         dislikeEntry = 0
         authEntry = ''

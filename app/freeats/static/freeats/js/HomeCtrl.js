@@ -74,6 +74,15 @@ function ($, app, eventBus) {
       $scope.createPost = function () {
         $('#newPostModal').modal();
       };
+      var Food = $resource('/freeats/food');
+      $scope.submitPost = function () {
+        var post = angular.copy($scope.newPost);
+        console.log(post);
+        Food.save(post, function () {
+          console.log('saved');
+        });
+        console.log('something happened');
+      };
 
       $scope.foodCollection = [
         {
