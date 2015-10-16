@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.core import serializers
 import json
 from .models import Food
+from .facebook import Facebook
 
 def index(request):
     return render(request, 'freeats/index.html', {})
@@ -39,9 +40,10 @@ def food(request):
         dateEntry = '2015-10-15'
         likeEntry = 0
         dislikeEntry = 0
-        authEntry = ''
+        f = Facebook()
+        authEntry = f.authorize(data['user_id'], data['access_token'])
         urlEntry = ''
-        new_entry = Food(title=titleEntry,location=locEntry,description=descrEntry,date=dateEntry,likes=likeEntry,dislikes=dislikeEntry,author=authEntry,imgurl=urlEntry)
+        new_entry = Food(title=titleEntry,location=locEntry,description=descrEntry,date=dateEntry,likes=likeEntry,dislikes=dislikeEntry,author_id=authEntry,imgurl=urlEntry)
         new_entry.save()
         return HttpResponse("saved request");
 

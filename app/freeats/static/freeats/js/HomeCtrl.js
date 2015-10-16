@@ -90,6 +90,8 @@ function ($, app, eventBus, facebookService) {
       var Food = $resource('/freeats/food');
       $scope.submitPost = function () {
         var post = angular.copy($scope.newPost);
+        post.user_id = $rootScope.fbUserId;
+        post.access_token = $rootScope.fbAccessToken;
         console.log(post);
         // Need to validate post data still
         Food.save(post, function () {

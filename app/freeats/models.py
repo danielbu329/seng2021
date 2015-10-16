@@ -9,7 +9,7 @@ class Food(models.Model):
     date = models.DateField()
     likes = models.IntegerField()
     dislikes = models.IntegerField()
-    author = models.CharField(max_length=50)
+    author_id = models.CharField(max_length=50)
     imgurl = models.CharField(max_length=100)
 
 class User(models.Model):
