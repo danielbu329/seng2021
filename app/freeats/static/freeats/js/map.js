@@ -64,10 +64,10 @@ function ($, google, eventBus) {
     }, 200);
     setTimeout( function() {
       labelIndex = 0;
-      addMarker(mainWalkway, map);
+      /*addMarker(mainWalkway, map);
       addMarker(libaryLawn, map);
       addMarker(physicsLawn, map);
-      addMarker(globeLawn, map);
+      addMarker(globeLawn, map);*/
     }, 500);
   });
 
@@ -98,6 +98,10 @@ function ($, google, eventBus) {
     map.setCenter(selectedLocation);
     map.panBy(calculateXOffset(), calculateYOffset());
   });
+
+  eventBus.on('addMapMarker', function (locationName) {
+    addMarker(locations[locationName], map);
+  })
 
   var setupMapCentering = function () {
     return setInterval(function () {

@@ -141,6 +141,7 @@ function ($, app, eventBus, facebookService) {
               food.upvotes = (food.likes / food.votes)*100 + '%';
               food.downvotes = ((food.votes-food.likes) / food.votes)*100 + '%';
             }
+            eventBus.emit('addMapMarker', food.location);
             $scope.foodCollection.push(food);
           }
           console.log($scope.foodCollection);
