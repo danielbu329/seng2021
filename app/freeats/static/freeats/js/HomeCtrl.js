@@ -29,6 +29,11 @@ function ($, app, eventBus, facebookService) {
         }
         return item;
       }
+      var updateCurrentItem = function () {
+        if ($scope.currentItem) {
+          $scope.currentItem = getItemById($scope.currentItem.id);
+        }
+      };
       $scope.showFoodDetail = function ($event, id) {
         $event.stopImmediatePropagation();
         $scope.currentItem = getItemById(id);
@@ -81,6 +86,7 @@ function ($, app, eventBus, facebookService) {
         Vote.save(vote, function () {
           console.info('Vote saved');
           $scope.updateFoodList();
+          updateCurrentItem();
         });
       };
       $scope.downvote = function ($event, itemId) {
@@ -94,6 +100,7 @@ function ($, app, eventBus, facebookService) {
         Vote.save(vote, function () {
           console.info('Vote saved');
           $scope.updateFoodList();
+          updateCurrentItem();
         });
       };
       $scope.createPost = function () {
