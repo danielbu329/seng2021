@@ -23,13 +23,13 @@ function (app, FB) {
                 $rootScope.loggedIn = true;
                 $rootScope.fbAccessToken = res.authResponse.accessToken;
                 $rootScope.fbUserId = res.authResponse.userID;
-                if (typeof cb == 'function') cb();
               } else if (res.status == 'not_authorized') {
                 // Not logged into Freeats, but is logged into Facebook
                 $rootScope.loggedIn = false;
               } else {
                 // Not logged into Freeats nor Facebook
               }
+              if (typeof cb == 'function') cb();
             });
           });
         });

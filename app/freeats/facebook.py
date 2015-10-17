@@ -25,7 +25,7 @@ class Facebook:
 
         if statusCode == 200 and str(json['id']) == str(user_id):
             return str(json['id'])
-        return '0'
+        return ''
     def getFeed(self):
         req = '/v2.4/%d/feed?%s' % (group_id, params)
 

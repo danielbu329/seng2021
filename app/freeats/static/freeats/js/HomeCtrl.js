@@ -14,7 +14,9 @@ function ($, app, eventBus, facebookService) {
       $rootScope.currentView = 'home';
       $rootScope.loggedIn = false;
 
-      $rootScope.getFacebookLoginStatus();
+      $rootScope.getFacebookLoginStatus(function () {
+        $scope.updateFoodList();
+      });
 
       var getItemById = function (id) {
         var item = null;
@@ -113,7 +115,11 @@ function ($, app, eventBus, facebookService) {
       };
 
       $scope.updateFoodList = function () {
-        Food.query(function (results) {
+        var params = {
+          user_id: $rootScope.fbUserId,
+          access_token: $rootScope.fbAccessToken
+        };
+        Food.query(params, function (results) {
           var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
           $scope.foodCollection = [];
           for (var i = 0; i < results.length; i++) {
@@ -133,7 +139,6 @@ function ($, app, eventBus, facebookService) {
           console.log($scope.foodCollection);
         });
       };
-      $scope.updateFoodList();
       /*$scope.foodCollection = [
         {
           id: 1,

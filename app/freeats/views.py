@@ -16,12 +16,27 @@ def index(request):
 # then inserts it into to the database
 def food(request):
     if request.method == "GET":
+        f = Facebook()
+        user_id = f.authorize(request.GET.get('user_id'), request.GET.get('access_token'))
+        fb_user = None
+        if User.objects.filter(fb_user_id=user_id).exists():
+            fb_user = User.objects.get(fb_user_id=user_id)
+        else:
+            fb_user = User(fb_user_id=user_id)
+            fb_user.save()
         # The '-' in -creation-time makes it sort in descending order
         foods = Food.objects \
             .annotate(likes=Sum('vote__like'), votes=Count('vote')) \
             .order_by('-creation_time') \
             .values()
-        foodData = json.dumps(list(foods), cls=DjangoJSONEncoder)
+        foods = list(foods)
+        if len(user_id) > 0:
+            # User is logged in
+            for i in foods:
+                if Vote.objects.filter(food=i['id'], fb_user=fb_user).exists():
+                    vote = Vote.objects.get(food=i['id'], fb_user=fb_user).like
+                    i['vote'] = 'up' if vote == 1 else 'down'
+        foodData = json.dumps(foods, cls=DjangoJSONEncoder)
         return HttpResponse(foodData, content_type='application/json')
     if request.method == "POST":
         data = json.loads(request.body.decode('utf-8'))
@@ -30,19 +45,20 @@ def food(request):
         description = data['description'] if 'description' in data else ''
         likes = 0
         dislikes = 0
-        f = Facebook()
-        user_id = f.authorize(data['user_id'], data['access_token'])
-        fb_user = None
-        if User.objects.filter(fb_user_id=user_id).exists():
-            fb_user = User.objects.get(fb_user_id=user_id)
-        else:
-            fb_user = User(fb_user_id=user_id)
-            fb_user.save()
-        img_url = ''
-        new_food = Food(
-                title=title, location=location, description=description,
-                fb_user=fb_user, img_url=img_url)
-        new_food.save()
+        if 'user_id' in data and 'access_token' in data:
+            f = Facebook()
+            user_id = f.authorize(data['user_id'], data['access_token'])
+            fb_user = None
+            if User.objects.filter(fb_user_id=user_id).exists():
+                fb_user = User.objects.get(fb_user_id=user_id)
+            else:
+                fb_user = User(fb_user_id=user_id)
+                fb_user.save()
+            img_url = ''
+            new_food = Food(
+                    title=title, location=location, description=description,
+                    fb_user=fb_user, img_url=img_url)
+            new_food.save()
         return HttpResponse("saved request");
 
 # freeats/vote
@@ -58,23 +74,24 @@ def vote(request):
             vote = 0
         else:
             vote = 0
-        f = Facebook()
-        user_id = f.authorize(data['user_id'], data['access_token'])
-        fb_user = None
-        if User.objects.filter(fb_user_id=user_id).exists():
-            fb_user = User.objects.get(fb_user_id=user_id)
-        else:
-            fb_user = User(fb_user_id=user_id)
-            fb_user.save()
-        if postId != None and Food.objects.filter(id=postId).exists():
-            food = Food.objects.get(id=postId)
-            v = None
-            if Vote.objects.filter(fb_user=fb_user, food=food).exists():
-                v = Vote.objects.get(fb_user=fb_user, food=food)
-                v.like = vote
+        if 'user_id' in data and 'access_token' in data:
+            f = Facebook()
+            user_id = f.authorize(data['user_id'], data['access_token'])
+            fb_user = None
+            if User.objects.filter(fb_user_id=user_id).exists():
+                fb_user = User.objects.get(fb_user_id=user_id)
             else:
-                v = Vote(fb_user=fb_user, food=food, like=vote)
-            v.save()
+                fb_user = User(fb_user_id=user_id)
+                fb_user.save()
+            if postId != None and Food.objects.filter(id=postId).exists():
+                food = Food.objects.get(id=postId)
+                v = None
+                if Vote.objects.filter(fb_user=fb_user, food=food).exists():
+                    v = Vote.objects.get(fb_user=fb_user, food=food)
+                    v.like = vote
+                else:
+                    v = Vote(fb_user=fb_user, food=food, like=vote)
+                v.save()
         return HttpResponse("saved vote");
 
 # freeats/myposts
