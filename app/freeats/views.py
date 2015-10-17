@@ -12,31 +12,16 @@ def index(request):
 
 # freeats/food 
 # GET returns json
-# Can GET a specific post id using paramter post=<integer>, or no paramter
-#   to get entire list of food
 # POST uses same variable names as model, gets each entry
 # then inserts it into to the database
 def food(request):
     if request.method == "GET":
-        param = request.GET.get('post','')
-        foodData = "";
-        if (param != ""):
-            try:
-                value = int(param)
-                print(value)
-                if Food.objects.filter(id=value).exists():
-                    foodData = Food.objects.get(id=value)
-            except ValueError:
-                print(param)
-                if Food.objects.filter(title=param).exists():
-                    foodData = Food.objects.get(title=param)
-        else:
-            # The '-' in -creation-time makes it sort in descending order
-            foods = Food.objects \
-                .annotate(likes=Sum('vote__like'), votes=Count('vote')) \
-                .order_by('-creation_time') \
-                .values()
-            foodData = json.dumps(list(foods), cls=DjangoJSONEncoder)
+        # The '-' in -creation-time makes it sort in descending order
+        foods = Food.objects \
+            .annotate(likes=Sum('vote__like'), votes=Count('vote')) \
+            .order_by('-creation_time') \
+            .values()
+        foodData = json.dumps(list(foods), cls=DjangoJSONEncoder)
         return HttpResponse(foodData, content_type='application/json')
     if request.method == "POST":
         data = json.loads(request.body.decode('utf-8'))
