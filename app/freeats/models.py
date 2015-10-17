@@ -5,10 +5,11 @@ from django.db import models
 class Food(models.Model):
     title = models.CharField(max_length=40)
     location = models.CharField(max_length=40)
-    description = models.CharField("Description of Food", max_length=400)
+    description = models.CharField(max_length=400, default='')
     creation_time = models.DateTimeField(auto_now_add=True)
     fb_user = models.ForeignKey('User')
-    img_url = models.CharField(max_length=100)
+    fb_post_id = models.CharField(max_length=60, default='')
+    img_url = models.CharField(max_length=250)
 
 class User(models.Model):
     fb_user_id = models.CharField(max_length=50)
