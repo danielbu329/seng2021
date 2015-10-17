@@ -224,7 +224,7 @@ div[ng-view] {
     opacity: 0;
     z-index: 2;
 }
-.top-right img {
+.top-right img.profile-icon {
     max-width: 50px;
     max-height: 50px;
     border-radius: 50%;
@@ -251,6 +251,27 @@ div[ng-view] {
     border-left: 1px solid rgba(0, 0, 0, 0.15);
     border-top: 1px solid rgba(0, 0, 0, 0.15);
     background-color: #FFF;
+}
+.top-right div.facebook-login {
+    border-radius: 4px;
+    background-color: #CCF;
+}
+.top-right .btn-facebook {
+    background-color: #3B5998;
+    border-color: none;
+    color: #FFF;
+}
+.top-right .btn-facebook:hover {
+    /*background-color: #3B5998;
+    //border-color: none;*/
+    opacity: 0.9;
+}
+.top-right .btn-facebook img {
+    max-width: 20px;
+    max-height: 20px;
+    position: relative;
+    top: -2px;
+    left: -4px;
 }
 
 

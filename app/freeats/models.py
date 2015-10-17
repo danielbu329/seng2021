@@ -9,11 +9,12 @@ class Food(models.Model):
     date = models.DateField()
     likes = models.IntegerField()
     dislikes = models.IntegerField()
-    author = models.CharField(max_length=50)
+    author_id = models.CharField(max_length=50)
     imgurl = models.CharField(max_length=100)
 
 class User(models.Model):
-    username = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
-    email = models.CharField(max_length=100)
+    #username = models.CharField(max_length=50)
+    #password = models.CharField(max_length=50)
+    #email = models.CharField(max_length=100)
+    fb_user_id = models.IntegerField()
     admin_status = models.BooleanField(default=0);

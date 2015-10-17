@@ -12,6 +12,15 @@
     <div class="mobile-back-button" ng-click="mobileBackButton()">
       <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"</span>
     </div>
+    <div ng-show="foodCollection.length == 0" class="alert alert-info" role="alert">
+      <p>
+        <b>Oh no!</b> There's no free food at UNSW currently.
+      </p>
+      <p>
+        If you're not too hungry, check back here soon and hopefully
+        we can feed your desire for free food!
+      </p>
+    </div>
     <div ng-repeat="item in foodCollection">
       <div class="item" ng-click="showFoodOnMap($event, item.id)">
         <div class="letter">
@@ -45,14 +54,20 @@
 </div>
 
 <div class="top-right">
-  <div class="dropdown">
-    <img src="/static/freeats/profile.jpg"
+  <div class="dropdown" ng-show="$root.loggedIn">
+    <img class="profile-icon" ng-src="http://graph.facebook.com/v2.5/{{$root.fbUserId}}/picture"
           id="userDropdown" data-toggle="dropdown">
     <ul class="dropdown-menu pull-right" aria-labelledby="userDropdown">
       <li><a href="/freeats/me">My Posts</a></li>
-      <li><a href="#">Settings</a></li>
-      <li><a href="#">Logout</a></li>
+      <li><a href="/freeats/settings">Settings</a></li>
+      <li><a href="" ng-click="$root.logoutFacebook()">Logout</a></li>
     </ul>
+  </div>
+  <div class="facebook-login" ng-show="!$root.loggedIn">
+    <button class="btn btn-facebook" ng-click="$root.loginFacebook()">
+      <img src="https://www.facebookbrand.com/img/assets/asset.f.logo.lg.png">
+      Log in with Facebook
+    </button>
   </div>
 </div>
 
@@ -143,30 +158,31 @@
         </button>
         <h4 class="modal-title">Create Post</h4>
       </div>
-      <form class="form-horizontal" role="form">
+      <form class="form-horizontal" role="form" ng-submit="submitPost()">
         <div class="modal-body">
           <div class="form-group">
             <label class="control-label col-sm-3" for="title">Title:</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="title">
+              <input type="text" class="form-control" id="title" ng-model="newPost.title">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-3" for="location">Location:</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="location">
+              <input type="text" class="form-control" id="location" ng-model="newPost.location">
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-3" for="description">Description:</label>
             <div class="col-sm-9">
-              <textarea class="form-control" rows="5" id="description"></textarea>
+              <textarea class="form-control" rows="5" id="description"
+                ng-model="newPost.description"></textarea>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-3" for="image-upload">Upload Image:</label>
             <div class="col-sm-9">
-              <input type="file" id="image-upload">
+              <input type="file" id="image-upload" ng-model="newPost.image">
             </div>
           </div>
         </div>
@@ -175,9 +191,7 @@
             data-dismiss="modal">
               Close
           </button>
-          <button type="submit" class="btn btn-primary pull-right">
-            Submit post
-          </button>
+          <input type="submit" value="Submit post" class="btn btn-primary pull-right" />
         </div>
       </form>
     </div><!-- /.modal-content -->

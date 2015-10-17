@@ -1,15 +1,21 @@
 define('HomeCtrl', [
   'jquery',
   'app',
-  'eventBus'
+  'eventBus',
+  'facebookService'
 ],
-function ($, app, eventBus) {
+function ($, app, eventBus, facebookService) {
   // Create main controller and attach it to the angular app
   app.controller(
     'HomeCtrl',
-    function ($rootScope, $scope, $resource, $location, $window) {
+    function ($rootScope, $scope, $resource, facebookService) {
       console.log('HomeCtrl');
+      facebookService.init();
       $rootScope.currentView = 'home';
+      $rootScope.loggedIn = false;
+
+      $rootScope.getFacebookLoginStatus();
+
       var getItemById = function (id) {
         var item = null;
         for (i in $scope.foodCollection) {
@@ -61,21 +67,65 @@ function ($, app, eventBus) {
           $(element).slideDown(500);
         });
       };
+      var Vote = $resource('/freeats/vote');
       $scope.upvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
         getItemById(itemId).vote = 'up';
-        // Make and PUT HTTP request to update the vote for current food item
+        Vote.save({ postId: itemId, vote: 'up' }, function () {
+          console.info('Vote saved');
+          $scope.updateFoodList();
+        });
       };
       $scope.downvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
         getItemById(itemId).vote = 'down';
-        // Make and PUT HTTP request to update the vote for current food item
+        Vote.save({ postId: itemId, vote: 'down' }, function () {
+          console.info('Vote saved');
+          $scope.updateFoodList();
+        });
       };
       $scope.createPost = function () {
         $('#newPostModal').modal();
       };
+      var Food = $resource('/freeats/food');
+      $scope.submitPost = function () {
+        var post = angular.copy($scope.newPost);
+        post.user_id = $rootScope.fbUserId;
+        post.access_token = $rootScope.fbAccessToken;
+        console.log(post);
+        // Need to validate post data still
+        Food.save(post, function () {
+          console.info('Post saved');
+          $('#newPostModal').modal('hide');
+          $scope.newPost = {};
+          $scope.updateFoodList();
+        });
+      };
 
-      $scope.foodCollection = [
+      $scope.updateFoodList = function () {
+        Food.query(function (results) {
+          var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+          $scope.foodCollection = [];
+          for (var i = 0; i < results.length; i++) {
+            var food = results[i].fields;
+            food.id = results[i].pk;
+            food.letter = letters[i % letters.length];
+            food.post = food.description;
+            delete food.description;
+            food.upvotes = '0%';
+            food.downvotes = '100%';
+            var totalVotes = food.likes + food.dislikes;
+            if (totalVotes > 0) {
+              food.upvotes = (food.likes / totalVotes)*100 + '%';
+              food.downvotes = (food.dislikes / totalVotes)*100 + '%';
+            }
+            $scope.foodCollection.push(food);
+          }
+          console.log($scope.foodCollection);
+        });
+      };
+      $scope.updateFoodList();
+      /*$scope.foodCollection = [
         {
           id: 1,
           title: 'Pizza',
@@ -118,7 +168,7 @@ function ($, app, eventBus) {
           downvotes: '60%',
           vote: 'down'
         }
-      ];
+      ];*/
 
       var animateLoading = function () {
         $('.loading img').animate({

@@ -1,14 +1,20 @@
 define('MyPostsCtrl', [
   'jquery',
   'app',
-  'eventBus'
+  'eventBus',
+  'facebookService'
 ],
-function ($, app, eventBus) {
+function ($, app, eventBus, facebookService) {
   app.controller(
     'MyPostsCtrl',
-    function ($rootScope, $scope, $resource) {
+    function ($rootScope, $scope, $resource, $location, facebookService) {
       console.log('MyPostsCtrl');
+      facebookService.init();
       $rootScope.currentView = 'myposts';
+      $rootScope.loggedIn = false;
+
+      $rootScope.getFacebookLoginStatus();
+
       /*eventBus.on('mapLoaded', function () {
         $rootScope.mapLoaded = true;
       });*/

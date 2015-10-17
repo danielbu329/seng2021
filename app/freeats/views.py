@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.core import serializers
 import json
 from .models import Food
+from .facebook import Facebook
 
 def index(request):
     return render(request, 'freeats/index.html', {})
@@ -32,14 +33,31 @@ def food(request):
             foodData = serializers.serialize('json', foods)
         return HttpResponse(foodData, content_type='application/json')
     if request.method == "POST":
-        titleEntry = request.POST.get('title')
-        locEntry = request.POST.get('location')
-        descrEntry = request.POST.get('description')
-        dateEntry = request.POST.get('date')
-        likeEntry = request.POST.get('likes')
-        dislikeEntry = request.POST.get('dislikes')
-        authEntry = request.POST.get('author')
-        urlEntry = request.POST.get('imgurl')
-        new_entry = Food(title=titleEntry,location=locEntry,description=descrEntry,date=dateEntry,likes=likeEntry,dislikes=dislikeEntry,author=authEntry,imgurl=urlEntry)
+        data = json.loads(request.body.decode('utf-8'))
+        titleEntry = data['title'] if 'title' in data else ''
+        locEntry = data['location'] if 'location' in data else ''
+        descrEntry = data['description'] if 'description' in data else ''
+        dateEntry = '2015-10-15'
+        likeEntry = 0
+        dislikeEntry = 0
+        f = Facebook()
+        authEntry = f.authorize(data['user_id'], data['access_token'])
+        urlEntry = ''
+        new_entry = Food(title=titleEntry,location=locEntry,description=descrEntry,date=dateEntry,likes=likeEntry,dislikes=dislikeEntry,author_id=authEntry,imgurl=urlEntry)
         new_entry.save()
         return HttpResponse("saved request");
+
+# freeats/vote
+# POST
+def vote(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        if 'postId' in data and Food.objects.filter(id=data['postId']).exists():
+            item = Food.objects.get(id=data['postId'])
+            if 'vote' in data:
+                if data['vote'] == 'up':
+                    item.likes += 1
+                elif data['vote'] == 'down':
+                    item.dislikes += 1
+                item.save()
+        return HttpResponse("saved vote");
