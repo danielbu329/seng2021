@@ -24,10 +24,10 @@
     <div ng-repeat="item in foodCollection">
       <div class="item" ng-click="showFoodOnMap($event, item.id)">
         <div class="letter">
-          <span class="middle" ng-bind="item.letter"></span>
+          <span class="middle">{{item.letter}}</span>
         </div>
         <div class="title">
-          <span class="middle" ng-bind="item.title"></span>
+          <span class="middle">{{item.title}}</span>
         </div>
         <div class="voteBtn up" ng-class="{'selected': item.vote == 'up'}"
               ng-click="upvote($event, item.id)">
@@ -38,7 +38,7 @@
           <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
         </div>
         <div class="location">
-          <span class="middle" ng-bind="item.location"></span>
+          <span class="middle">{{item.location}}</span>
         </div>
         <div class="voteBtn down" ng-class="{'selected': item.vote == 'down'}"
               ng-click="downvote($event, item.id)">
@@ -88,9 +88,7 @@
           data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">
-          <span ng-bind="currentItem.title"></span>
-        </h4>
+        <h4 class="modal-title">{{currentItem.title}}</h4>
       </div>
       <div class="modal-body">
         <div class="voteBtn-group pull-right">
@@ -106,7 +104,7 @@
           </div>
         </div>
         <p>
-          <b>Where:</b> <span ng-bind="currentItem.location"></span>
+          <b>Where:</b> {{currentItem.location}}
         </p>
         <p>
           <b>Original Post:</b>
@@ -115,22 +113,22 @@
               class="food-pic pull-right">
         </p>
         <blockquote class="food-post">
-          <p ng-bind="currentItem.post"></p>
-          <div ng-if="currentItem.fromFacebook">
+          <p>{{currentItem.post}}</p>
+          <div ng-if="currentItem.fb_post_id.length > 0">
             <footer>UNSW Free Food Facebook group</footer>
           </div>
         </blockquote>
       </div>
       <div class="modal-footer">
         <span class="pull-left modal-footer-info">
-          <div ng-switch on="currentItem.fromFacebook">
+          <div ng-switch on="currentItem.fb_post_id.length > 0">
             <div ng-switch-when="true">
               <a target="_blank"
                   href="https://www.facebook.com/groups/unswfreefood">
                 <img src="/static/freeats/fb_icon.png" class="fb-icon">
               </a>
               <a target="_blank"
-                  href="https://www.facebook.com/groups/unswfreefood">
+                  ng-href="https://www.facebook.com/{{currentItem.fb_post_id}}">
                 See this post on Facebook
               </a>
             </div>
