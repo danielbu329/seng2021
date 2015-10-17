@@ -1,4 +1,5 @@
 import threading
+from time import sleep
 from freeats.facebook import Facebook
 from freeats.utils import getUserOrCreate
 from freeats.models import Food, User
@@ -15,4 +16,9 @@ def collectFromFacebook():
                 description=i['message'], creation_time=i['time'],
                 fb_user=fb_user, fb_post_id=i['post_id'], img_url=image)
             food.save()
-    threading.Timer(30, collectFromFacebook).start()
+    sleep(30)
+    collectFromFacebook()
+
+def collector():
+    thread = threading.Thread(target=collectFromFacebook)
+    thread.start()
