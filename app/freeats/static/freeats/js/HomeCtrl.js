@@ -71,7 +71,12 @@ function ($, app, eventBus, facebookService) {
       $scope.upvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
         getItemById(itemId).vote = 'up';
-        Vote.save({ postId: itemId, vote: 'up' }, function () {
+        var vote = {
+          postId: itemId, vote: 'up',
+          user_id: $rootScope.fbUserId,
+          access_token: $rootScope.fbAccessToken
+        };
+        Vote.save(vote, function () {
           console.info('Vote saved');
           $scope.updateFoodList();
         });
@@ -79,7 +84,12 @@ function ($, app, eventBus, facebookService) {
       $scope.downvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
         getItemById(itemId).vote = 'down';
-        Vote.save({ postId: itemId, vote: 'down' }, function () {
+        var vote = {
+          postId: itemId, vote: 'down',
+          user_id: $rootScope.fbUserId,
+          access_token: $rootScope.fbAccessToken
+        };
+        Vote.save(vote, function () {
           console.info('Vote saved');
           $scope.updateFoodList();
         });
@@ -107,17 +117,16 @@ function ($, app, eventBus, facebookService) {
           var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
           $scope.foodCollection = [];
           for (var i = 0; i < results.length; i++) {
-            var food = results[i].fields;
-            food.id = results[i].pk;
+            var food = angular.copy(results[i]);
+            //food.id = results[i].pk;
             food.letter = letters[i % letters.length];
             food.post = food.description;
             delete food.description;
             food.upvotes = '0%';
             food.downvotes = '100%';
-            var totalVotes = food.likes + food.dislikes;
-            if (totalVotes > 0) {
-              food.upvotes = (food.likes / totalVotes)*100 + '%';
-              food.downvotes = (food.dislikes / totalVotes)*100 + '%';
+            if (food.votes > 0) {
+              food.upvotes = (food.likes / food.votes)*100 + '%';
+              food.downvotes = ((food.votes-food.likes) / food.votes)*100 + '%';
             }
             $scope.foodCollection.push(food);
           }

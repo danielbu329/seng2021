@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core import serializers
+from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Sum, Count
 import json
-from .models import Food
+from .models import Food, User, Vote
 from .facebook import Facebook
 
 def index(request):
@@ -29,22 +31,33 @@ def food(request):
                 if Food.objects.filter(title=param).exists():
                     foodData = Food.objects.get(title=param)
         else:
-            foods = Food.objects.all()
-            foodData = serializers.serialize('json', foods)
+            # The '-' in -creation-time makes it sort in descending order
+            foods = Food.objects \
+                .annotate(likes=Sum('vote__like'), votes=Count('vote')) \
+                .order_by('-creation_time') \
+                .values()
+            foodData = json.dumps(list(foods), cls=DjangoJSONEncoder)
         return HttpResponse(foodData, content_type='application/json')
     if request.method == "POST":
         data = json.loads(request.body.decode('utf-8'))
-        titleEntry = data['title'] if 'title' in data else ''
-        locEntry = data['location'] if 'location' in data else ''
-        descrEntry = data['description'] if 'description' in data else ''
-        dateEntry = '2015-10-15'
-        likeEntry = 0
-        dislikeEntry = 0
+        title = data['title'] if 'title' in data else ''
+        location = data['location'] if 'location' in data else ''
+        description = data['description'] if 'description' in data else ''
+        likes = 0
+        dislikes = 0
         f = Facebook()
-        authEntry = f.authorize(data['user_id'], data['access_token'])
-        urlEntry = ''
-        new_entry = Food(title=titleEntry,location=locEntry,description=descrEntry,date=dateEntry,likes=likeEntry,dislikes=dislikeEntry,author_id=authEntry,imgurl=urlEntry)
-        new_entry.save()
+        user_id = f.authorize(data['user_id'], data['access_token'])
+        fb_user = None
+        if User.objects.filter(fb_user_id=user_id).exists():
+            fb_user = User.objects.get(fb_user_id=user_id)
+        else:
+            fb_user = User(fb_user_id=user_id)
+            fb_user.save()
+        img_url = ''
+        new_food = Food(
+                title=title, location=location, description=description,
+                fb_user=fb_user, img_url=img_url)
+        new_food.save()
         return HttpResponse("saved request");
 
 # freeats/vote
@@ -52,12 +65,29 @@ def food(request):
 def vote(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
-        if 'postId' in data and Food.objects.filter(id=data['postId']).exists():
-            item = Food.objects.get(id=data['postId'])
-            if 'vote' in data:
-                if data['vote'] == 'up':
-                    item.likes += 1
-                elif data['vote'] == 'down':
-                    item.dislikes += 1
-                item.save()
+        postId = data['postId'] if 'postId' in data else None
+        vote = data['vote'] if 'vote' in data else None
+        if vote == 'up':
+            vote = 1
+        elif vote == 'down':
+            vote = 0
+        else:
+            vote = 0
+        f = Facebook()
+        user_id = f.authorize(data['user_id'], data['access_token'])
+        fb_user = None
+        if User.objects.filter(fb_user_id=user_id).exists():
+            fb_user = User.objects.get(fb_user_id=user_id)
+        else:
+            fb_user = User(fb_user_id=user_id)
+            fb_user.save()
+        if postId != None and Food.objects.filter(id=postId).exists():
+            food = Food.objects.get(id=postId)
+            v = None
+            if Vote.objects.filter(fb_user=fb_user, food=food).exists():
+                v = Vote.objects.get(fb_user=fb_user, food=food)
+                v.like = vote
+            else:
+                v = Vote(fb_user=fb_user, food=food, like=vote)
+            v.save()
         return HttpResponse("saved vote");

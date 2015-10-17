@@ -6,15 +6,15 @@ class Food(models.Model):
     title = models.CharField(max_length=40)
     location = models.CharField(max_length=40)
     description = models.CharField("Description of Food", max_length=400)
-    date = models.DateField()
-    likes = models.IntegerField()
-    dislikes = models.IntegerField()
-    author_id = models.CharField(max_length=50)
-    imgurl = models.CharField(max_length=100)
+    creation_time = models.DateTimeField(auto_now_add=True)
+    fb_user = models.ForeignKey('User')
+    img_url = models.CharField(max_length=100)
 
 class User(models.Model):
-    #username = models.CharField(max_length=50)
-    #password = models.CharField(max_length=50)
-    #email = models.CharField(max_length=100)
-    fb_user_id = models.IntegerField()
+    fb_user_id = models.CharField(max_length=50)
     admin_status = models.BooleanField(default=0);
+
+class Vote(models.Model):
+    fb_user = models.ForeignKey('User')
+    food = models.ForeignKey('Food')
+    like = models.IntegerField()
