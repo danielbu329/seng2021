@@ -13,14 +13,27 @@ function ($, app, eventBus, facebookService) {
       $rootScope.currentView = 'myposts';
       $rootScope.loggedIn = false;
 
-      $rootScope.getFacebookLoginStatus();
+      $rootScope.getFacebookLoginStatus(function () {
+        var MyPost = $resource('/freeats/myposts');
+        var params = {
+          user_id: $rootScope.fbUserId,
+          access_token: $rootScope.fbAccessToken
+        };
+        MyPost.query(params, function (results) {
+          $scope.myPosts = [];
+          for (var i = 0; i < results.length; i++) {
+            var post = angular.copy(results[i]);
+            $scope.myPosts.push(post);
+          }
+        });
+      });
 
       /*eventBus.on('mapLoaded', function () {
         $rootScope.mapLoaded = true;
       });*/
       eventBus.emit('showMyPostsCtrl');
 
-      $scope.myPosts = [
+      /*$scope.myPosts = [
         {
           id: 1,
           title: 'My post 1223123',
@@ -51,7 +64,7 @@ function ($, app, eventBus, facebookService) {
           location: 'Main Walkway',
           description: 'Here is some food'
         }
-      ];
+      ];*/
 
       $($('.map')[0]).fadeTo(400, 0, function () {
         $($('.map')[0]).css({ display: 'none' });

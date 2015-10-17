@@ -91,3 +91,21 @@ def vote(request):
                 v = Vote(fb_user=fb_user, food=food, like=vote)
             v.save()
         return HttpResponse("saved vote");
+
+# freeats/myposts
+def myposts(request):
+    f = Facebook()
+    user_id = f.authorize(request.GET.get('user_id'), request.GET.get('access_token'))
+    fb_user = None
+    if User.objects.filter(fb_user_id=user_id).exists():
+        fb_user = User.objects.get(fb_user_id=user_id)
+    else:
+        fb_user = User(fb_user_id=user_id)
+        fb_user.save()
+    # The '-' in -creation-time makes it sort in descending order
+    foods = Food.objects \
+        .filter(fb_user=fb_user.id) \
+        .order_by('-creation_time') \
+        .values()
+    foodData = json.dumps(list(foods), cls=DjangoJSONEncoder)
+    return HttpResponse(foodData, content_type='application/json')
