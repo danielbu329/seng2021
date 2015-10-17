@@ -2,9 +2,10 @@ define('HomeCtrl', [
   'jquery',
   'app',
   'eventBus',
-  'facebookService'
+  'facebookService',
+  'moment-timezone-data'
 ],
-function ($, app, eventBus, facebookService) {
+function ($, app, eventBus, facebookService, moment) {
   // Create main controller and attach it to the angular app
   app.controller(
     'HomeCtrl',
@@ -33,6 +34,10 @@ function ($, app, eventBus, facebookService) {
         if ($scope.currentItem) {
           $scope.currentItem = getItemById($scope.currentItem.id);
         }
+      };
+      $scope.formatTime = function (time) {
+        var t = moment.tz(time, 'UTC'); // Parse the time as UTC first
+        return t.tz('Australia/Sydney').fromNow(); // Convert to AEST
       };
       $scope.showFoodDetail = function ($event, id) {
         $event.stopImmediatePropagation();
@@ -135,6 +140,7 @@ function ($, app, eventBus, facebookService) {
             food.letter = letters[i % letters.length];
             food.post = food.description;
             delete food.description;
+            food.creation_time = food.creation_time.replace(/T/, ' ').replace(/Z/, '');
             food.upvotes = '0%';
             food.downvotes = '100%';
             if (food.votes > 0) {

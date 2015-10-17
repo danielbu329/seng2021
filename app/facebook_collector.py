@@ -13,9 +13,9 @@ def collectFromFacebook():
             fb_user = getUserOrCreate(i['from']['id'])
             image = Facebook().getImageUrl(i['image'])
             food = Food(title=title, location=i['location'],
-                description=i['message'], creation_time=i['time'],
-                fb_user=fb_user, fb_post_id=i['post_id'], img_url=image)
-            food.save()
+                        description=i['message'], creation_time=i['time'],
+                        fb_user=fb_user, fb_post_id=i['post_id'], img_url=image)
+            food.save(skip_autotimestamp=True)
     sleep(30)
     collectFromFacebook()
 

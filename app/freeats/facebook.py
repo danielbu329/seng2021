@@ -1,7 +1,7 @@
 import http.client
 import urllib
 from json import loads as parseJson
-import time
+from datetime import datetime
 import re
 
 access_token = '1633260020259993|4J_v5RbtjG8CFhnfBYsHagTlsiw'
@@ -9,7 +9,7 @@ group_id = 428460270539887
 params = urllib.parse.urlencode({'access_token': access_token})
 
 def parseTime(s):
-    return time.strptime(s, '%Y-%m-%dT%H:%M:%S+0000')
+    return datetime.strptime(s, '%Y-%m-%dT%H:%M:%S+0000')
 
 class Facebook:
     def authorize(self, user_id, user_access_token):

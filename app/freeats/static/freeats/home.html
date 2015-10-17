@@ -28,6 +28,7 @@
         </div>
         <div class="title">
           <span class="middle">{{item.title}}</span>
+          <span class="middle pull-right time">{{formatTime(item.creation_time)}}</span>
         </div>
         <div class="voteBtn up" ng-class="{'selected': item.vote == 'up'}"
               ng-click="upvote($event, item.id)">
@@ -88,7 +89,11 @@
           data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
-        <h4 class="modal-title">{{currentItem.title}}</h4>
+        <h4 class="modal-title">
+          {{currentItem.title}}
+          <span class="pull-right">{{formatTime(currentItem.creation_time)}}</span>
+        </h4>
+
       </div>
       <div class="modal-body">
         <div class="voteBtn-group pull-right">

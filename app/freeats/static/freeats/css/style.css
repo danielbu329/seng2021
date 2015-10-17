@@ -119,7 +119,10 @@ div[ng-view] {
     border-bottom: none;
     width: calc(100% - 3.5em - 1.75em - 3.5em);
     height: 1.75em;
-    padding-left: 0.5em;
+    padding: 0 0.5em;
+}
+.item .title .time {
+    color: #666;
 }
 .item .location {
     float: left;
@@ -329,6 +332,12 @@ div[ng-view] {
 .modal-footer-info {
     margin-top: 7px;
     color: #999;
+}
+#foodDetailModal h4 span {
+    font-weight: normal;
+    font-size: 15px;
+    margin-right: 15px;
+    color: #666;
 }
 
 
