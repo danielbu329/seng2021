@@ -111,7 +111,7 @@
         <p>
           <b>Original Post:</b>
           <br/>
-          <img ng-if="currentItem.pic" src="/static/freeats/pizza.jpg"
+          <img ng-if="currentItem.img_url.length > 0" ng-src="{{currentItem.img_url}}"
               class="food-pic pull-right">
         </p>
         <blockquote class="food-post">
