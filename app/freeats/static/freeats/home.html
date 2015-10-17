@@ -28,14 +28,14 @@
         </div>
         <div class="title">
           <span class="middle" ng-bind="item.title"></span>
-          <div class="info-btn middle pull-right"
-                ng-click="showFoodDetail($event, item.id)">
-            <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-          </div>
         </div>
         <div class="voteBtn up" ng-class="{'selected': item.vote == 'up'}"
               ng-click="upvote($event, item.id)">
           <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+        </div>
+        <div class="info-btn middle pull-right"
+              ng-click="showFoodDetail($event, item.id)">
+          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
         </div>
         <div class="location">
           <span class="middle" ng-bind="item.location"></span>

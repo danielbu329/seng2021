@@ -117,7 +117,7 @@ div[ng-view] {
     border: 1px solid #BBB;
     border-left: none;
     border-bottom: none;
-    width: calc(100% - 3.5em - 1.75em);
+    width: calc(100% - 3.5em - 1.75em - 3.5em);
     height: 1.75em;
     padding-left: 0.5em;
 }
@@ -126,13 +126,27 @@ div[ng-view] {
     border: 1px solid #BBB;
     border-left: none;
     border-top: none;
-    width: calc(100% - 3.5em - 1.75em);
+    width: calc(100% - 3.5em - 1.75em - 3.5em);
     height: 1.75em;
     padding-left: 0.5em;
 }
 .item .info-btn {
-    margin-right: 5px;
     cursor: pointer;
+    width: 3.5em;
+    height: 3.5em;
+    text-align: center;
+    margin-top: -5px;
+    border: 1px solid #BBB;
+    border-left: none;
+}
+.item .info-btn span {
+    font-size: 20px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.item .info-btn:hover {
+    background-color: rgba(200, 200, 200, 0.85);
 }
 .item .bar {
     display: inline-block;
