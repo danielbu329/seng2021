@@ -13,6 +13,14 @@
   </p>
   <div class="box">
     <h1>Posts</h1>
+    <div ng-show="myPosts.length == 0" class="alert alert-info" role="alert">
+      <p>
+        You haven't posted any free food posts yet.
+      </p>
+      <p>
+        Keep on the look out for free food around campus and post them to FREEATS!
+      </p>
+    </div>
     <table class="table">
       <tbody>
         <tr class="post" ng-repeat="post in myPosts">
