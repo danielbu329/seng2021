@@ -209,10 +209,6 @@ function ($, app, eventBus, facebookService) {
         eventBus.emit('showHomeCtrl');
       }
 
-      eventBus.on('mapLoaded', function () {
-        $rootScope.mapLoaded = true;
-        eventBus.emit('showMap');
-      });
       eventBus.on('showHomeCtrl', function () {
         clearInterval(intervalId);
         $('.loading').hide();
@@ -226,7 +222,14 @@ function ($, app, eventBus, facebookService) {
           $(element).slideDown(500);
         });
       });
+      eventBus.on('mapLoaded', function () {
+        $rootScope.mapLoaded = true;
+        eventBus.emit('showMap');
+      });
 
+      if ($rootScope.mapLoaded) {
+        eventBus.emit('showMap');
+      }
     }
   );
 });

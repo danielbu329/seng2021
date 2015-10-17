@@ -13,6 +13,10 @@ function ($, app, eventBus, facebookService) {
       $rootScope.currentView = 'myposts';
       $rootScope.loggedIn = false;
 
+      eventBus.on('mapLoaded', function () {
+        $rootScope.mapLoaded = true;
+      });
+
       $rootScope.getFacebookLoginStatus(function () {
         var MyPost = $resource('/freeats/myposts');
         var params = {
@@ -28,9 +32,6 @@ function ($, app, eventBus, facebookService) {
         });
       });
 
-      /*eventBus.on('mapLoaded', function () {
-        $rootScope.mapLoaded = true;
-      });*/
       eventBus.emit('showMyPostsCtrl');
 
       /*$scope.myPosts = [

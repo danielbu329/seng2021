@@ -29,6 +29,7 @@ function ($, google, eventBus) {
     scrollwheel: false
   });
 
+  var markers = [];
   var addMarker = function (location, map) {
     var marker = new google.maps.Marker({
       position: location,
@@ -36,6 +37,14 @@ function ($, google, eventBus) {
       animation: google.maps.Animation.DROP,
       map: map
     });
+    markers.push(marker);
+  };
+
+  var deleteMarkers = function () {
+    for (var i = 0; i < markers.length; i++) {
+      markers[i].setMap(null);
+    }
+    markers = [];
   };
 
   google.maps.event.addListener(map, 'click', function(event) {
@@ -48,11 +57,13 @@ function ($, google, eventBus) {
   });
 
   eventBus.on('showMap', function () {
+    deleteMarkers();
     $($('.map')[0]).fadeTo(400, 1);
     setTimeout(function () {
       eventBus.emit('showHomeCtrl');
     }, 200);
     setTimeout( function() {
+      labelIndex = 0;
       addMarker(mainWalkway, map);
       addMarker(libaryLawn, map);
       addMarker(physicsLawn, map);
