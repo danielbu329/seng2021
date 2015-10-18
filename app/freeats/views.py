@@ -44,7 +44,8 @@ def food(request):
                     title=title, location=location, description=description,
                     fb_user=fb_user, img_url=img_url)
             new_food.save()
-        return HttpResponse("saved request");
+            return HttpResponse(status=201)
+        return HttpResponse(status=401);
 
 # freeats/vote
 # POST
@@ -69,7 +70,9 @@ def vote(request):
                 else:
                     vote = Vote(fb_user=fb_user, food=food, like=like)
                 vote.save()
-        return HttpResponse("saved vote");
+                return HttpResponse()
+            return HttpResponse(status=400)
+        return HttpResponse();
 
 # freeats/myposts
 def myposts(request):
@@ -82,4 +85,5 @@ def myposts(request):
             .order_by('-creation_time') \
             .values()
         foodData = json.dumps(list(foods), cls=DjangoJSONEncoder)
-    return HttpResponse(foodData, content_type='application/json')
+        return HttpResponse(foodData, content_type='application/json')
+    return HttpResponse(status=401)
