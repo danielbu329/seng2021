@@ -77,10 +77,10 @@ DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.mysql',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'freeatsdata',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
-        'HOST' : 'LOCALHOST',
+        'NAME': 'dbt081a1umo4fo',
+        'USER': 'uqzwakkcarqspo',
+        'PASSWORD': 'KwkCpbMOgqePRDKmRA9jX_dO9t',
+        'HOST' : 'ec2-54-204-6-113.compute-1.amazonaws.com',
     }
 }
 
