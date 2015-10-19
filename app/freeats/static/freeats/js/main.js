@@ -31,6 +31,7 @@ require([
   'app',
   'HomeCtrl',
   'MyPostsCtrl',
+  'AdminCtrl',
   'appConfig',
   'map'
 ], function () {

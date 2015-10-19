@@ -3,11 +3,6 @@
 </div>
 <div class="my-posts-content">
   <p>
-    <h2 class="vote-stat green" ng-show="likes != undefined">+ {{likes}}</h2>
-    <img ng-src="https://graph.facebook.com/v2.5/{{$root.fbUserId}}/picture?type=large">
-    <h2 class="vote-stat red" ng-show="dislikes != undefined">- {{dislikes}}</h2>
-  </p>
-  <p>
     <a href="/freeats" class="btn btn-default">
       <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span>
       Find food
@@ -18,18 +13,15 @@
     </button>
   </p>
   <div class="box">
-    <h1>Posts</h1>
-    <div ng-show="myPosts.length == 0" class="alert alert-info" role="alert">
+    <h1>Review Posts</h1>
+    <div ng-show="posts.length == 0" class="alert alert-info" role="alert">
       <p>
-        You haven't posted any free food posts yet.
-      </p>
-      <p>
-        Keep on the look out for free food around campus and post them to FREEATS!
+        There aren't any posts yet.
       </p>
     </div>
     <table class="table">
       <tbody>
-        <tr class="post" ng-repeat="post in myPosts">
+        <tr class="post" ng-repeat="post in posts">
           <td>
             <h4 class="truncate">
               {{post.title}}<!--

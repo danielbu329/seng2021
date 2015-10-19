@@ -62,8 +62,9 @@ def food(request):
             if 'updatingFinished' in data:
                 updatingFinished = data['updatingFinished']
             fb_user = getUserOrCreate(user_id)
-            if Food.objects.filter(id=post_id, fb_user=fb_user).exists():
-                post = Food.objects.get(id=post_id, fb_user=fb_user)
+            if Food.objects.filter(id=post_id, fb_user=fb_user).exists() or \
+                (Food.objects.filter(id=post_id).exists() and fb_user.admin_status):
+                post = Food.objects.get(id=post_id)
                 if updatingFinished:
                     post.finished = finished
                 else:
@@ -81,8 +82,9 @@ def food(request):
             # User is logged in
             post_id = request.GET.get('postId')
             fb_user = getUserOrCreate(user_id)
-            if Food.objects.filter(id=post_id, fb_user=fb_user).exists():
-                Food.objects.get(id=post_id, fb_user=fb_user).delete()
+            if Food.objects.filter(id=post_id, fb_user=fb_user).exists() or \
+                (Food.objects.filter(id=post_id).exists() and fb_user.admin_status):
+                Food.objects.get(id=post_id).delete()
                 return HttpResponse()
             return HttpResponse(status=400)
         return HttpResponse(status=401)
@@ -138,8 +140,24 @@ def mystats(request):
             .annotate(likes=Sum('vote__like'), votes=Count('vote')) \
             .annotate(dislikes=F('votes')-F('likes'))
         stats = json.dumps({
+            'admin_status': fb_user.admin_status,
             'likes': myfoods.aggregate(Sum('likes'))['likes__sum'],
             'dislikes': myfoods.aggregate(Sum('dislikes'))['dislikes__sum']
         }, cls=DjangoJSONEncoder)
         return HttpResponse(stats, content_type='application/json')
     return HttpResponse(status=401)
+
+# freeats/allposts
+def allposts(request):
+    user_id = authenticate(request)
+    if request.method == 'GET':
+        if user_id:
+            # User is logged in
+            fb_user = getUserOrCreate(user_id)
+            if fb_user.admin_status:
+                # The '-' in -creation-time makes it sort in descending order
+                posts = list(Food.objects.all().order_by('-creation_time').values())
+                data = json.dumps(posts, cls=DjangoJSONEncoder)
+                return HttpResponse(data, content_type='application/json')
+            return HttpResponse(status=401)
+        return HttpResponse(status=400)
