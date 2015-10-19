@@ -59,7 +59,25 @@ function ($, google, eventBus) {
     markers = [];
   };
 
-var addBorder = function () {
+  var findLocation = function () {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var myLocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        var marker = new google.maps.Marker({
+          position: myLocation,
+          label: "M",
+          animation: google.maps.Animation.DROP,
+          map: map
+        });
+      });
+    }
+  };
+
+  var addBorder = function () {
     var everythingElse = [
       new google.maps.LatLng(-33.90, 151.21),
       new google.maps.LatLng(-33.95, 151.21),
@@ -101,6 +119,7 @@ var addBorder = function () {
   eventBus.on('showMap', function () {
     deleteMarkers();
     addBorder();
+    findLocation();
     $($('.map')[0]).fadeTo(400, 1);
     setTimeout(function () {
       eventBus.emit('showHomeCtrl');
