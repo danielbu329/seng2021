@@ -11,13 +11,25 @@ function ($, google, eventBus) {
   var libaryLawn = {lat: -33.916785, lng: 151.233555};
   var physicsLawn = {lat: -33.919068, lng: 151.229847};
   var mainWalkway = {lat: -33.917521, lng: 151.228371};
+  var scienceTheatre = {lat: -33.917544, lng: 151.229653};
+  var quadLawn = {lat: -33.916985, lng: 151.231100};
+  var scientiaLawn = {lat: -33.917911, lng: 151.232851};
+  var johnLionsGarden = {lat: -33.918644, lng: 151.231079};
+  var arcLocation = {lat: -33.916749, lng: 151.231592};
+  var collegeRoadLawn = {lat: -33.916354, lng: 151.229548};
   var selectedLocation = unsw;
 
   var locations = {
     'Main Walkway': mainWalkway,
     'Library lawn': libaryLawn,
     'Physics lawn': physicsLawn,
-    'Globe lawn': globeLawn
+    'Globe lawn': globeLawn,
+    'Science Theatre': scienceTheatre,
+    'Quad Lawn': quadLawn,
+    'Scientia Lawn': scientiaLawn,
+    'John Lions Garden': johnLionsGarden,
+    'Arc': arcLocation,
+    'College Road Lawn': collegeRoadLawn
   }
 
   $($('.map')[0]).css({ display: 'block' });
