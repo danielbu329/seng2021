@@ -20,4 +20,7 @@ try running server
 
 Notes:
 (might need to change user postgres password to 'password'? or not...try without)
-alter user postgres with password 'password';
+From the terminal:
+$ sudo -u postgres psql freeatsdata
+$ alter user postgres with password 'password';
+
