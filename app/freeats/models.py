@@ -9,8 +9,9 @@ class Food(models.Model):
     description = models.CharField(max_length=400, default='')
     creation_time = models.DateTimeField()
     fb_user = models.ForeignKey('User')
-    fb_post_id = models.CharField(max_length=60, default='')
+    fb_post_id = models.CharField(max_length=60, default=None, unique=True, null=True)
     img_url = models.CharField(max_length=250)
+    finished = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not kwargs.pop('skip_autotimestamp', False):
@@ -19,7 +20,7 @@ class Food(models.Model):
 
 class User(models.Model):
     fb_user_id = models.CharField(max_length=50)
-    admin_status = models.BooleanField(default=0);
+    admin_status = models.BooleanField(default=False);
 
 class Vote(models.Model):
     fb_user = models.ForeignKey('User')
