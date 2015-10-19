@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^vote$', views.vote, name='vote'),
     url(r'^myposts$', views.myposts, name='myposts'),
     url(r'^mystats$', views.mystats, name='mystats'),
+    url(r'^allposts$', views.allposts, name='allposts'),
     url(r'^', views.index, name='index')
 ]

@@ -13,6 +13,10 @@ function (app) {
         templateUrl: '/static/freeats/myposts.html',
         controller: 'MyPostsCtrl'
       })
+      .when('/freeats/admin', {
+        templateUrl: '/static/freeats/admin.html',
+        controller: 'AdminCtrl'
+      })
       .otherwise({ 'redirectTo': '/freeats' });
   });
 });

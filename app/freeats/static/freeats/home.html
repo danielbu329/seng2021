@@ -60,6 +60,12 @@
           id="userDropdown" data-toggle="dropdown">
     <ul class="dropdown-menu pull-right" aria-labelledby="userDropdown">
       <li><a href="/freeats/me">My Posts</a></li>
+      <li ng-show="$root.admin_status">
+        <a href="/freeats/admin">
+          Review Posts
+          <span class="glyphicon glyphicon-eye-open pull-right" aria-hidden="true"></span>
+        </a>
+      </li>
       <li><a href="" ng-click="$root.logoutFacebook()">Logout</a></li>
     </ul>
   </div>

@@ -427,6 +427,6 @@ div[ng-view] {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.my-posts-content h4 span {
+.my-posts-content h4 span.desc {
     font-weight: normal;
 }

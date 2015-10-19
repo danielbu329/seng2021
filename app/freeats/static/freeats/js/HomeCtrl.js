@@ -23,6 +23,13 @@ function ($, app, eventBus, facebookService, moment) {
             loop();
           }, 5000);
         })();
+        var MyStats = $resource('/freeats/mystats');
+        var stats = MyStats.get({
+          user_id: $rootScope.fbUserId,
+          access_token: $rootScope.fbAccessToken
+        }, function () {
+          $rootScope.admin_status = stats.admin_status;
+        });
       });
 
       var getItemById = function (id) {
