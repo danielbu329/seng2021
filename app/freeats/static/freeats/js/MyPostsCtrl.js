@@ -34,13 +34,29 @@ function ($, app, eventBus, facebookService) {
         }
         return item;
       }
+      var Food = $resource('/freeats/food',  null, {
+        'update': { method: 'PUT' }
+      });
+      $scope.createPost = function () {
+        $('#newPostModal').modal();
+      };
+      $scope.submitPost = function () {
+        var post = angular.copy($scope.newPost);
+        post.user_id = $rootScope.fbUserId;
+        post.access_token = $rootScope.fbAccessToken;
+        console.log(post);
+        // Need to validate post data still
+        Food.save(post, function () {
+          console.info('Post saved');
+          $('#newPostModal').modal('hide');
+          $scope.newPost = {};
+          $scope.updatePostList();
+        });
+      };
       $scope.editPost = function (postId) {
         $scope.post = getItemById(postId);
         $('#editPostModal').modal();
       };
-      var Food = $resource('/freeats/food',  null, {
-        'update': { method: 'PUT' }
-      });
       $scope.updatePost = function () {
         var post = angular.copy($scope.post);
         post.user_id = $rootScope.fbUserId;
@@ -71,7 +87,8 @@ function ($, app, eventBus, facebookService) {
           user_id: $rootScope.fbUserId,
           access_token: $rootScope.fbAccessToken,
           id: postId,
-          finished: post.finished
+          finished: post.finished,
+          updatingFinished: true
         };
         Food.update(data, function () {
           console.info('Post finish toggled');

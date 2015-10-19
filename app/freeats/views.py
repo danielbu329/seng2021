@@ -56,13 +56,14 @@ def food(request):
             location = data['location'] if 'location' in data else ''
             description = data['description'] if 'description' in data else ''
             img_url = ''
-            finished = None
-            if 'finished' in data:
-                finished = data['finished']
+            finished = data['finished'] if 'finished' in data else False
+            updatingFinished = False
+            if 'updatingFinished' in data:
+                updatingFinished = data['updatingFinished']
             fb_user = getUserOrCreate(user_id)
             if Food.objects.filter(id=post_id, fb_user=fb_user).exists():
                 post = Food.objects.get(id=post_id, fb_user=fb_user)
-                if finished != None:
+                if updatingFinished:
                     post.finished = finished
                 else:
                     post.title = title
