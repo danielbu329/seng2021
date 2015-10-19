@@ -18,6 +18,43 @@ function ($, app, eventBus, facebookService) {
       });
 
       $rootScope.getFacebookLoginStatus(function () {
+        $scope.updatePostList();
+      });
+
+      eventBus.emit('showMyPostsCtrl');
+
+      var getItemById = function (id) {
+        var item = null;
+        for (i in $scope.myPosts) {
+          var j = $scope.myPosts[i];
+          if (j.id == id) {
+            item = j;
+            break;
+          }
+        }
+        return item;
+      }
+      $scope.editPost = function (postId) {
+        $scope.post = getItemById(postId);
+        $('#editPostModal').modal();
+      };
+      var Food = $resource('/freeats/food',  null, {
+        'update': { method: 'PUT' }
+      });
+      $scope.updatePost = function () {
+        var post = angular.copy($scope.post);
+        post.user_id = $rootScope.fbUserId;
+        post.access_token = $rootScope.fbAccessToken;
+        console.log(post);
+        // Need to validate post data still
+        Food.update(post, function () {
+          console.info('Post saved');
+          $('#editPostModal').modal('hide');
+          $scope.post = {};
+          $scope.updatePostList();
+        });
+      };
+      $scope.updatePostList = function () {
         var MyPost = $resource('/freeats/myposts');
         var params = {
           user_id: $rootScope.fbUserId,
@@ -30,9 +67,7 @@ function ($, app, eventBus, facebookService) {
             $scope.myPosts.push(post);
           }
         });
-      });
-
-      eventBus.emit('showMyPostsCtrl');
+      }
 
       /*$scope.myPosts = [
         {

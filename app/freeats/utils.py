@@ -8,7 +8,7 @@ def authenticate(request):
     if request.method == 'GET':
         user_id = request.GET.get('user_id')
         access_token = request.GET.get('access_token')
-    elif request.method == 'POST':
+    elif request.method == 'POST' or request.method == 'PUT':
         data = json.loads(request.body.decode('utf-8'))
         if 'user_id' in data:
             user_id = data['user_id']

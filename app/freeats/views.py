@@ -31,7 +31,7 @@ def food(request):
                     i['vote'] = 'up' if vote == 1 else 'down'
         foodData = json.dumps(foods, cls=DjangoJSONEncoder)
         return HttpResponse(foodData, content_type='application/json')
-    if request.method == 'POST':
+    elif request.method == 'POST':
         if user_id:
             # User is logged in
             data = json.loads(request.body.decode('utf-8'))
@@ -45,7 +45,28 @@ def food(request):
                     fb_user=fb_user, img_url=img_url)
             new_food.save()
             return HttpResponse(status=201)
-        return HttpResponse(status=401);
+        return HttpResponse(status=401)
+    elif request.method == 'PUT':
+        if user_id:
+            # User is logged in
+            data = json.loads(request.body.decode('utf-8'))
+            post_id = int(data['id']) if 'id' in data else 0
+            title = data['title'] if 'title' in data else ''
+            location = data['location'] if 'location' in data else ''
+            description = data['description'] if 'description' in data else ''
+            img_url = ''
+            fb_user = getUserOrCreate(user_id)
+            if Food.objects.filter(id=post_id, fb_user=fb_user).exists():
+                post = Food.objects.get(id=post_id)
+                post.title = title
+                post.location = location
+                post.description = description
+                if len(img_url) > 0:
+                    post.img_url = img_url
+                post.save(skip_autotimestamp=True)
+                return HttpResponse()
+            return HttpResponse(status=401)
+        return HttpResponse(status=401)
 
 # freeats/vote
 # POST
