@@ -136,7 +136,6 @@ function ($, app, eventBus, facebookService, moment) {
           $scope.foodCollection = [];
           for (var i = 0; i < results.length; i++) {
             var food = angular.copy(results[i]);
-            //food.id = results[i].pk;
             food.letter = letters[i % letters.length];
             food.post = food.description;
             delete food.description;
@@ -145,7 +144,7 @@ function ($, app, eventBus, facebookService, moment) {
             food.downvotes = '100%';
             if (food.votes > 0) {
               food.upvotes = (food.likes / food.votes)*100 + '%';
-              food.downvotes = ((food.votes-food.likes) / food.votes)*100 + '%';
+              food.downvotes = (food.dislikes / food.votes)*100 + '%';
             }
             eventBus.emit('addMapMarker', food.location);
             $scope.foodCollection.push(food);

@@ -19,6 +19,14 @@ function ($, app, eventBus, facebookService) {
 
       $rootScope.getFacebookLoginStatus(function () {
         $scope.updatePostList();
+        var MyStats = $resource('/freeats/mystats');
+        var stats = MyStats.get({
+          user_id: $rootScope.fbUserId,
+          access_token: $rootScope.fbAccessToken
+        }, function () {
+          $scope.likes = stats.likes;
+          $scope.dislikes = stats.dislikes;
+        });
       });
 
       eventBus.emit('showMyPostsCtrl');

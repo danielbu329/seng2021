@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import Sum, Count
+from django.db.models import F, Sum, Count
 import json
 from .models import Food, User, Vote
 from .utils import *
@@ -21,6 +21,7 @@ def food(request):
         foods = list(Food.objects \
             .filter(finished=False) \
             .annotate(likes=Sum('vote__like'), votes=Count('vote')) \
+            .annotate(dislikes=F('votes')-F('likes')) \
             .order_by('-creation_time') \
             .values())
         if user_id:
@@ -125,4 +126,20 @@ def myposts(request):
             .values()
         foodData = json.dumps(list(foods), cls=DjangoJSONEncoder)
         return HttpResponse(foodData, content_type='application/json')
+    return HttpResponse(status=401)
+
+# freeats/mystats
+def mystats(request):
+    user_id = authenticate(request)
+    if user_id:
+        fb_user = getUserOrCreate(user_id)
+        myfoods = Food.objects \
+            .filter(fb_user=fb_user) \
+            .annotate(likes=Sum('vote__like'), votes=Count('vote')) \
+            .annotate(dislikes=F('votes')-F('likes'))
+        stats = json.dumps({
+            'likes': myfoods.aggregate(Sum('likes'))['likes__sum'],
+            'dislikes': myfoods.aggregate(Sum('dislikes'))['dislikes__sum']
+        }, cls=DjangoJSONEncoder)
+        return HttpResponse(stats, content_type='application/json')
     return HttpResponse(status=401)

@@ -3,7 +3,9 @@
 </div>
 <div class="my-posts-content">
   <p>
+    <h2 class="vote-stat green" ng-show="likes != undefined">+ {{likes}}</h2>
     <img ng-src="https://graph.facebook.com/v2.5/{{$root.fbUserId}}/picture?type=large">
+    <h2 class="vote-stat red" ng-show="dislikes != undefined">- {{dislikes}}</h2>
   </p>
   <p>
     <a href="/freeats" class="btn btn-default">

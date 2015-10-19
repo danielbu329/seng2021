@@ -377,6 +377,16 @@ div[ng-view] {
     width: 200px;
     border-radius: 50%;
 }
+.my-posts-content .vote-stat {
+    display: inline-block;
+    margin: 0 15px;
+}
+.my-posts-content .vote-stat.green {
+    color: #5cb85c;
+}
+.my-posts-content .vote-stat.red {
+    color: #d9534f;
+}
 .my-posts-content .box {
     position: relative;
     left: 50%;
