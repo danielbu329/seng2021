@@ -44,7 +44,6 @@ function ($, app, eventBus, facebookService) {
         var post = angular.copy($scope.newPost);
         post.user_id = $rootScope.fbUserId;
         post.access_token = $rootScope.fbAccessToken;
-        console.log(post);
         // Need to validate post data still
         Food.save(post, function () {
           console.info('Post saved');
@@ -61,7 +60,6 @@ function ($, app, eventBus, facebookService) {
         var post = angular.copy($scope.post);
         post.user_id = $rootScope.fbUserId;
         post.access_token = $rootScope.fbAccessToken;
-        console.log(post);
         // Need to validate post data still
         Food.update(post, function () {
           console.info('Post saved');
