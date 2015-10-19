@@ -54,6 +54,16 @@ function ($, app, eventBus, facebookService) {
           $scope.updatePostList();
         });
       };
+      $scope.deletePost = function (postId) {
+        Food.remove({
+          postId: postId,
+          user_id: $rootScope.fbUserId,
+          access_token: $rootScope.fbAccessToken
+        }, function () {
+          console.info('Post deleted');
+          $scope.updatePostList();
+        });
+      };
       $scope.updatePostList = function () {
         var MyPost = $resource('/freeats/myposts');
         var params = {

@@ -57,7 +57,7 @@ def food(request):
             img_url = ''
             fb_user = getUserOrCreate(user_id)
             if Food.objects.filter(id=post_id, fb_user=fb_user).exists():
-                post = Food.objects.get(id=post_id)
+                post = Food.objects.get(id=post_id, fb_user=fb_user)
                 post.title = title
                 post.location = location
                 post.description = description
@@ -66,6 +66,16 @@ def food(request):
                 post.save(skip_autotimestamp=True)
                 return HttpResponse()
             return HttpResponse(status=401)
+        return HttpResponse(status=401)
+    elif request.method == 'DELETE':
+        if user_id:
+            # User is logged in
+            post_id = request.GET.get('postId')
+            fb_user = getUserOrCreate(user_id)
+            if Food.objects.filter(id=post_id, fb_user=fb_user).exists():
+                Food.objects.get(id=post_id, fb_user=fb_user).delete()
+                return HttpResponse()
+            return HttpResponse(status=400)
         return HttpResponse(status=401)
 
 # freeats/vote

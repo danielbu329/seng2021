@@ -1,3 +1,4 @@
+from django.http import QueryDict
 from .models import User
 import json
 from .facebook import Facebook
@@ -5,7 +6,7 @@ from .facebook import Facebook
 def authenticate(request):
     user_id = None
     access_token = None
-    if request.method == 'GET':
+    if request.method == 'GET' or request.method == 'DELETE':
         user_id = request.GET.get('user_id')
         access_token = request.GET.get('access_token')
     elif request.method == 'POST' or request.method == 'PUT':
