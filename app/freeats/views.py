@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import F Sum, Count
+from django.db.models import F, Sum, Count
 import json
 from .models import Food, User, Vote
 from .utils import *
