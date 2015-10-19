@@ -59,6 +59,36 @@ function ($, google, eventBus) {
     markers = [];
   };
 
+var addBorder = function () {
+    var everythingElse = [
+      new google.maps.LatLng(-33.90, 151.21),
+      new google.maps.LatLng(-33.95, 151.21),
+      new google.maps.LatLng(-33.95, 151.29),
+      new google.maps.LatLng(-33.90, 151.29),
+    ];
+
+    var layoutCoords = [
+      new google.maps.LatLng(-33.916019, 151.234596),
+      new google.maps.LatLng(-33.916233, 151.234918),
+      new google.maps.LatLng(-33.916482, 151.236656),
+      new google.maps.LatLng(-33.919135, 151.236119),
+      new google.maps.LatLng(-33.918512, 151.232214),
+      new google.maps.LatLng(-33.920293, 151.231785),
+      new google.maps.LatLng(-33.919563, 151.226313),
+      new google.maps.LatLng(-33.914666, 151.225197),
+    ];
+
+    unswTrace = new google.maps.Polygon({
+      paths: [everythingElse, layoutCoords],
+      strokeColor: "#000000",
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: "#000000",
+      fillOpacity: 0.2
+    });
+    unswTrace.setMap(map);
+  };
+
   google.maps.event.addListener(map, 'click', function(event) {
     addMarker(event.latLng, map);
   });
@@ -70,6 +100,7 @@ function ($, google, eventBus) {
 
   eventBus.on('showMap', function () {
     deleteMarkers();
+    addBorder();
     $($('.map')[0]).fadeTo(400, 1);
     setTimeout(function () {
       eventBus.emit('showHomeCtrl');
