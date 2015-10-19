@@ -34,7 +34,8 @@
             </h4>
           </td>
           <td>
-            <button class="btn btn-default">
+            <button class="btn btn-default" ng-click="finishPost(post.id)"
+                ng-class="{'btn-success': post.finished}">
               <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
               Finished
             </button>

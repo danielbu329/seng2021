@@ -64,6 +64,20 @@ function ($, app, eventBus, facebookService) {
           $scope.updatePostList();
         });
       };
+      $scope.finishPost = function (postId) {
+        var post = getItemById(postId);
+        post.finished = !post.finished;
+        var data = {
+          user_id: $rootScope.fbUserId,
+          access_token: $rootScope.fbAccessToken,
+          id: postId,
+          finished: post.finished
+        };
+        Food.update(data, function () {
+          console.info('Post finish toggled');
+          $scope.updatePostList();
+        });
+      }
       $scope.updatePostList = function () {
         var MyPost = $resource('/freeats/myposts');
         var params = {

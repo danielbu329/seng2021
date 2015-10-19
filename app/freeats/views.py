@@ -19,6 +19,7 @@ def food(request):
     if request.method == 'GET':
         # The '-' in -creation-time makes it sort in descending order
         foods = list(Food.objects \
+            .filter(finished=False) \
             .annotate(likes=Sum('vote__like'), votes=Count('vote')) \
             .order_by('-creation_time') \
             .values())
@@ -55,14 +56,20 @@ def food(request):
             location = data['location'] if 'location' in data else ''
             description = data['description'] if 'description' in data else ''
             img_url = ''
+            finished = None
+            if 'finished' in data:
+                finished = data['finished']
             fb_user = getUserOrCreate(user_id)
             if Food.objects.filter(id=post_id, fb_user=fb_user).exists():
                 post = Food.objects.get(id=post_id, fb_user=fb_user)
-                post.title = title
-                post.location = location
-                post.description = description
-                if len(img_url) > 0:
-                    post.img_url = img_url
+                if finished != None:
+                    post.finished = finished
+                else:
+                    post.title = title
+                    post.location = location
+                    post.description = description
+                    if len(img_url) > 0:
+                        post.img_url = img_url
                 post.save(skip_autotimestamp=True)
                 return HttpResponse()
             return HttpResponse(status=401)
