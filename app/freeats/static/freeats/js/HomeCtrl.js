@@ -17,6 +17,12 @@ function ($, app, eventBus, facebookService, moment) {
 
       $rootScope.getFacebookLoginStatus(function () {
         $scope.updateFoodList();
+        (function loop() {
+          setTimeout(function () {
+            $scope.updateFoodList();
+            loop();
+          }, 5000);
+        })();
       });
 
       var getItemById = function (id) {
@@ -116,7 +122,6 @@ function ($, app, eventBus, facebookService, moment) {
         var post = angular.copy($scope.newPost);
         post.user_id = $rootScope.fbUserId;
         post.access_token = $rootScope.fbAccessToken;
-        console.log(post);
         // Need to validate post data still
         Food.save(post, function () {
           console.info('Post saved');
@@ -149,7 +154,6 @@ function ($, app, eventBus, facebookService, moment) {
             eventBus.emit('addMapMarker', food.location);
             $scope.foodCollection.push(food);
           }
-          console.log($scope.foodCollection);
         });
       };
       /*$scope.foodCollection = [

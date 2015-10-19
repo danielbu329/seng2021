@@ -19,14 +19,14 @@ function ($, app, eventBus, facebookService) {
 
       $rootScope.getFacebookLoginStatus(function () {
         $scope.updatePostList();
-        var MyStats = $resource('/freeats/mystats');
-        var stats = MyStats.get({
-          user_id: $rootScope.fbUserId,
-          access_token: $rootScope.fbAccessToken
-        }, function () {
-          $scope.likes = stats.likes;
-          $scope.dislikes = stats.dislikes;
-        });
+        $scope.updateMyStats();
+        (function loop() {
+          setTimeout(function () {
+            $scope.updatePostList();
+            $scope.updateMyStats();
+            loop();
+          }, 5000);
+        })();
       });
 
       eventBus.emit('showMyPostsCtrl');
@@ -114,7 +114,17 @@ function ($, app, eventBus, facebookService) {
             $scope.myPosts.push(post);
           }
         });
-      }
+      };
+      $scope.updateMyStats = function () {
+        var MyStats = $resource('/freeats/mystats');
+        var stats = MyStats.get({
+          user_id: $rootScope.fbUserId,
+          access_token: $rootScope.fbAccessToken
+        }, function () {
+          $scope.likes = stats.likes;
+          $scope.dislikes = stats.dislikes;
+        });
+      };
 
       /*$scope.myPosts = [
         {
