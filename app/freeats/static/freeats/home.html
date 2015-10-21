@@ -28,7 +28,7 @@
         </div>
         <div class="title">
           <span class="middle">{{item.title}}</span>
-          <span class="middle pull-right time">{{formatTime(item.creation_time)}}</span>
+          <span class="middle pull-right grey">{{formatTime(item.creation_time)}}</span>
         </div>
         <div class="voteBtn up" ng-class="{'selected': item.vote == 'up'}"
               ng-click="upvote($event, item.id)">
@@ -40,6 +40,10 @@
         </div>
         <div class="location">
           <span class="middle">{{item.location}}</span>
+          <span class="middle pull-right grey"
+            ng-show="item.distance != null || item.distance != undefined">
+            {{item.distance}}m away
+          </span>
         </div>
         <div class="voteBtn down" ng-class="{'selected': item.vote == 'down'}"
               ng-click="downvote($event, item.id)">

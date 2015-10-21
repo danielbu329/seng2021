@@ -147,6 +147,9 @@ function ($, app, eventBus, facebookService, moment) {
           user_id: $rootScope.fbUserId,
           access_token: $rootScope.fbAccessToken
         };
+        eventBus.on('foundDistance', function (data) {
+          getItemById(data.postId).distance = data.distance;
+        });
         Food.query(params, function (results) {
           var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
           $scope.foodCollection = [];
@@ -164,6 +167,10 @@ function ($, app, eventBus, facebookService, moment) {
               food.downvotes = (food.dislikes / food.votes)*100 + '%';
             }
             eventBus.emit('addMapMarker', food.location);
+            eventBus.emit('findDistance', {
+              postId: food.id,
+              location: food.location
+            });
             $scope.foodCollection.push(food);
           }
           eventBus.emit('setMapAnimation', false);

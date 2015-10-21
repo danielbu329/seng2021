@@ -121,7 +121,7 @@ div[ng-view] {
     height: 1.75em;
     padding: 0 0.5em;
 }
-.item .title .time {
+.item .grey {
     color: #666;
 }
 .item .location {
@@ -131,7 +131,7 @@ div[ng-view] {
     border-top: none;
     width: calc(100% - 3.5em - 1.75em - 3.5em);
     height: 1.75em;
-    padding-left: 0.5em;
+    padding: 0 0.5em;
 }
 .item .info-btn {
     cursor: pointer;
