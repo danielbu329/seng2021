@@ -77,10 +77,14 @@ DATABASES = {
     'default': {
         #'ENGINE': 'django.db.backends.mysql',
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbt081a1umo4fo',
-        'USER': 'uqzwakkcarqspo',
-        'PASSWORD': 'KwkCpbMOgqePRDKmRA9jX_dO9t',
-        'HOST' : 'ec2-54-204-6-113.compute-1.amazonaws.com',
+        'NAME': 'freeatsdata',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
+        'HOST' : 'LOCALHOST',
+        # 'NAME': 'dbt081a1umo4fo',
+        # 'USER': 'uqzwakkcarqspo',
+        # 'PASSWORD': 'KwkCpbMOgqePRDKmRA9jX_dO9t',
+        # 'HOST' : 'ec2-54-204-6-113.compute-1.amazonaws.com',
     }
 }
 
@@ -100,8 +104,8 @@ USE_TZ = True
 
 
 # Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+#import dj_database_url
+#DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
