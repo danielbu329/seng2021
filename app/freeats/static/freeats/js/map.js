@@ -106,6 +106,7 @@ function ($, google, eventBus) {
     });
     unswTrace.setMap(map);
   };
+  addBorder();
 
   google.maps.event.addListener(map, 'click', function(event) {
     addMarker(event.latLng, map);
@@ -118,7 +119,6 @@ function ($, google, eventBus) {
 
   eventBus.on('showMap', function () {
     deleteMarkers();
-    addBorder();
     findLocation();
     $($('.map')[0]).fadeTo(400, 1);
     setTimeout(function () {
