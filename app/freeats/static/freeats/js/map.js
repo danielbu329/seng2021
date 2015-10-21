@@ -18,6 +18,8 @@ function ($, google, eventBus) {
   var arcLocation = {lat: -33.916749, lng: 151.231592};
   var collegeRoadLawn = {lat: -33.916354, lng: 151.229548};
   var selectedLocation = unsw;
+  var doAnimation = true;
+  var currentLocation = null;
 
   var locations = {
     'Main Walkway': mainWalkway,
@@ -46,7 +48,7 @@ function ($, google, eventBus) {
     var marker = new google.maps.Marker({
       position: location,
       label: labels[labelIndex++ % labels.length],
-      animation: google.maps.Animation.DROP,
+      animation: doAnimation ? google.maps.Animation.DROP : null,
       map: map
     });
     markers.push(marker);
@@ -57,6 +59,7 @@ function ($, google, eventBus) {
       markers[i].setMap(null);
     }
     markers = [];
+    labelIndex = 0;
   };
 
   var findLocation = function () {
@@ -67,12 +70,15 @@ function ($, google, eventBus) {
           lng: position.coords.longitude
         };
 
-        var marker = new google.maps.Marker({
-          position: myLocation,
-          label: "M",
-          animation: google.maps.Animation.DROP,
-          map: map
-        });
+        if (currentLocation == null) {
+          currentLocation = new google.maps.Marker({
+            position: myLocation,
+            label: "M",
+            animation: google.maps.Animation.DROP,
+            map: map
+          });
+        }
+        currentLocation.setPosition(myLocation);
       });
     }
   };
@@ -124,13 +130,6 @@ function ($, google, eventBus) {
     setTimeout(function () {
       eventBus.emit('showHomeCtrl');
     }, 200);
-    setTimeout( function() {
-      labelIndex = 0;
-      /*addMarker(mainWalkway, map);
-      addMarker(libaryLawn, map);
-      addMarker(physicsLawn, map);
-      addMarker(globeLawn, map);*/
-    }, 500);
   });
 
   var calculateXOffset = function () {
@@ -161,9 +160,18 @@ function ($, google, eventBus) {
     map.panBy(calculateXOffset(), calculateYOffset());
   });
 
+  eventBus.on('clearMapMarkers', function () {
+    deleteMarkers();
+    findLocation();
+  });
+
   eventBus.on('addMapMarker', function (locationName) {
     addMarker(locations[locationName], map);
-  })
+  });
+
+  eventBus.on('setMapAnimation', function (animate) {
+    doAnimation = animate ? true : false;
+  });
 
   var setupMapCentering = function () {
     return setInterval(function () {

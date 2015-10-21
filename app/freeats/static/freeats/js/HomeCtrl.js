@@ -146,6 +146,7 @@ function ($, app, eventBus, facebookService, moment) {
         Food.query(params, function (results) {
           var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
           $scope.foodCollection = [];
+          eventBus.emit('clearMapMarkers');
           for (var i = 0; i < results.length; i++) {
             var food = angular.copy(results[i]);
             food.letter = letters[i % letters.length];
@@ -161,6 +162,7 @@ function ($, app, eventBus, facebookService, moment) {
             eventBus.emit('addMapMarker', food.location);
             $scope.foodCollection.push(food);
           }
+          eventBus.emit('setMapAnimation', false);
         });
       };
       /*$scope.foodCollection = [
