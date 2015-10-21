@@ -20,7 +20,7 @@ function ($, google, eventBus) {
   var selectedLocation = unsw;
   var doAnimation = true;
   var currentLocation = null;
-  var myLocation = {lat: 0, lng: 0};
+  var myLocation = null;
 
   var locations = {
     'Main Walkway': mainWalkway,
@@ -64,9 +64,12 @@ function ($, google, eventBus) {
   };
 
   var findDistance = function (location) {
-    var myLatlng = new google.maps.LatLng(myLocation.lat, myLocation.lng);
-    var myLatlng2 = new google.maps.LatLng(location.lat, location.lng);
-    return google.maps.geometry.spherical.computeDistanceBetween(myLatlng, myLatlng2);
+    if (myLocation != null) {
+      var myLatlng = new google.maps.LatLng(myLocation.lat, myLocation.lng);
+      var myLatlng2 = new google.maps.LatLng(location.lat, location.lng);
+      return google.maps.geometry.spherical.computeDistanceBetween(myLatlng, myLatlng2);
+    }
+    return null;
   }
 
   var findLocation = function () {
@@ -178,6 +181,14 @@ function ($, google, eventBus) {
 
   eventBus.on('setMapAnimation', function (animate) {
     doAnimation = animate ? true : false;
+  });
+
+  eventBus.on('findDistance', function (data)) {
+    var distance = findDistance(locations[data.location]);
+    eventBus.emit('foundDistance', {
+      postId: data.postId,
+      distance: distance
+    });
   });
 
   var setupMapCentering = function () {
