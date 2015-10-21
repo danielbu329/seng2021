@@ -114,7 +114,7 @@ def vote(request):
                 vote.save()
                 return HttpResponse()
             return HttpResponse(status=400)
-        return HttpResponse();
+        return HttpResponse(status=401);
 
 # /myposts
 def myposts(request):

@@ -105,6 +105,8 @@ function ($, app, eventBus, facebookService, moment) {
           console.info('Vote saved');
           $scope.updateFoodList();
           updateCurrentItem();
+        }, function () {
+          $rootScope.loginFacebook();
         });
       };
       $scope.downvote = function ($event, itemId) {
@@ -119,6 +121,8 @@ function ($, app, eventBus, facebookService, moment) {
           console.info('Vote saved');
           $scope.updateFoodList();
           updateCurrentItem();
+        }, function () {
+          $rootScope.loginFacebook();
         });
       };
       $scope.createPost = function () {
@@ -165,50 +169,6 @@ function ($, app, eventBus, facebookService, moment) {
           eventBus.emit('setMapAnimation', false);
         });
       };
-      /*$scope.foodCollection = [
-        {
-          id: 1,
-          title: 'Pizza',
-          location: 'Main Walkway',
-          letter: 'A',
-          upvotes: '75%',
-          downvotes: '25%',
-          vote: 'up',
-          post: "There's some free pizza on main walkway.\
-                Diabetes Australia is raising awareness for type 2 diabetes...\
-                Come get it while it's hot!",
-          fromFacebook: true,
-          pic: true
-        },
-        {
-          id: 2,
-          title: 'Cereal',
-          location: 'Library lawn',
-          letter: 'B',
-          upvotes: '95%',
-          downvotes: '5%',
-          vote: 'up',
-          post: "Get you're daily breakfast at the library lawn.\
-                Wide variety of cereal to choose from"
-        },
-        {
-          id: 3,
-          title: 'CSESoc BBQ',
-          location: 'Physics lawn',
-          letter: 'C',
-          upvotes: '40%',
-          downvotes: '60%'
-        },
-        {
-          id: 4,
-          title: 'Pizza',
-          location: 'Globe lawn',
-          letter: 'D',
-          upvotes: '40%',
-          downvotes: '60%',
-          vote: 'down'
-        }
-      ];*/
 
       var animateLoading = function () {
         $('.loading img').animate({
