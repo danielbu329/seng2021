@@ -64,7 +64,7 @@ function ($, google, eventBus) {
   };
 
   var findDistance = function (location) {
-    if (myLocation != null) {
+    if (myLocation != null && location != null) {
       var myLatlng = new google.maps.LatLng(myLocation.lat, myLocation.lng);
       var myLatlng2 = new google.maps.LatLng(location.lat, location.lng);
       return google.maps.geometry.spherical.computeDistanceBetween(myLatlng, myLatlng2);
@@ -183,7 +183,7 @@ function ($, google, eventBus) {
     doAnimation = animate ? true : false;
   });
 
-  eventBus.on('findDistance', function (data)) {
+  eventBus.on('findDistance', function (data) {
     var distance = findDistance(locations[data.location]);
     eventBus.emit('foundDistance', {
       postId: data.postId,

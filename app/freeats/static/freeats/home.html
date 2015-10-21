@@ -42,7 +42,7 @@
           <span class="middle">{{item.location}}</span>
           <span class="middle pull-right grey"
             ng-show="item.distance != null || item.distance != undefined">
-            {{item.distance}}m away
+            {{item.distance.toFixed(0)}} m away
           </span>
         </div>
         <div class="voteBtn down" ng-class="{'selected': item.vote == 'down'}"

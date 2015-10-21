@@ -167,11 +167,11 @@ function ($, app, eventBus, facebookService, moment) {
               food.downvotes = (food.dislikes / food.votes)*100 + '%';
             }
             eventBus.emit('addMapMarker', food.location);
+            $scope.foodCollection.push(food);
             eventBus.emit('findDistance', {
               postId: food.id,
               location: food.location
             });
-            $scope.foodCollection.push(food);
           }
           eventBus.emit('setMapAnimation', false);
         });
