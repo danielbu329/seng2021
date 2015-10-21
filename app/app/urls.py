@@ -19,8 +19,8 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-    url(r'^freeats/', include('freeats.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^django/admin', include(admin.site.urls)),
+    url(r'^', include('freeats.urls'))
 ]
 
 urlpatterns += staticfiles_urlpatterns()

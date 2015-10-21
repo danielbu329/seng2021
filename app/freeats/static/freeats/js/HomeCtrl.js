@@ -23,7 +23,7 @@ function ($, app, eventBus, facebookService, moment) {
             loop();
           }, 5000);
         })();
-        var MyStats = $resource('/freeats/mystats');
+        var MyStats = $resource('/mystats');
         var stats = MyStats.get({
           user_id: $rootScope.fbUserId,
           access_token: $rootScope.fbAccessToken
@@ -92,7 +92,7 @@ function ($, app, eventBus, facebookService, moment) {
           $(element).slideDown(500);
         });
       };
-      var Vote = $resource('/freeats/vote');
+      var Vote = $resource('/vote');
       $scope.upvote = function ($event, itemId) {
         $event.stopImmediatePropagation();
         getItemById(itemId).vote = 'up';
@@ -124,7 +124,7 @@ function ($, app, eventBus, facebookService, moment) {
       $scope.createPost = function () {
         $('#newPostModal').modal();
       };
-      var Food = $resource('/freeats/food');
+      var Food = $resource('/food');
       $scope.submitPost = function () {
         var post = angular.copy($scope.newPost);
         post.user_id = $rootScope.fbUserId;

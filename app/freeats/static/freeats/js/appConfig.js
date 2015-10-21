@@ -5,18 +5,18 @@ function (app) {
   app.config(function ($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
     $routeProvider
-      .when('/freeats', {
+      .when('/', {
         templateUrl: '/static/freeats/home.html',
         controller: 'HomeCtrl'
       })
-      .when('/freeats/me', {
+      .when('/me', {
         templateUrl: '/static/freeats/myposts.html',
         controller: 'MyPostsCtrl'
       })
-      .when('/freeats/admin', {
+      .when('/admin', {
         templateUrl: '/static/freeats/admin.html',
         controller: 'AdminCtrl'
       })
-      .otherwise({ 'redirectTo': '/freeats' });
+      .otherwise({ 'redirectTo': '/' });
   });
 });

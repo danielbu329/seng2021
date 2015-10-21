@@ -10,7 +10,7 @@ from .utils import *
 def index(request):
     return render(request, 'freeats/index.html', {})
 
-# freeats/food 
+# /food
 # GET returns json
 # POST uses same variable names as model, gets each entry
 # then inserts it into to the database
@@ -89,7 +89,7 @@ def food(request):
             return HttpResponse(status=400)
         return HttpResponse(status=401)
 
-# freeats/vote
+# /vote
 # POST
 def vote(request):
     user_id = authenticate(request)
@@ -116,7 +116,7 @@ def vote(request):
             return HttpResponse(status=400)
         return HttpResponse();
 
-# freeats/myposts
+# /myposts
 def myposts(request):
     user_id = authenticate(request)
     if user_id:
@@ -130,7 +130,7 @@ def myposts(request):
         return HttpResponse(foodData, content_type='application/json')
     return HttpResponse(status=401)
 
-# freeats/mystats
+# /mystats
 def mystats(request):
     user_id = authenticate(request)
     if user_id:
@@ -147,7 +147,7 @@ def mystats(request):
         return HttpResponse(stats, content_type='application/json')
     return HttpResponse(status=401)
 
-# freeats/allposts
+# /allposts
 def allposts(request):
     user_id = authenticate(request)
     if request.method == 'GET':

@@ -25,7 +25,7 @@ function ($, app, eventBus, facebookService) {
             loop();
           }, 5000);
         })();
-        var MyStats = $resource('/freeats/mystats');
+        var MyStats = $resource('/mystats');
         var stats = MyStats.get({
           user_id: $rootScope.fbUserId,
           access_token: $rootScope.fbAccessToken
@@ -47,7 +47,7 @@ function ($, app, eventBus, facebookService) {
         }
         return item;
       }
-      var Food = $resource('/freeats/food',  null, {
+      var Food = $resource('/food',  null, {
         'update': { method: 'PUT' }
       });
       $scope.createPost = function () {
@@ -107,7 +107,7 @@ function ($, app, eventBus, facebookService) {
         });
       }
       $scope.updatePostList = function () {
-        var Post = $resource('/freeats/allposts');
+        var Post = $resource('/allposts');
         var params = {
           user_id: $rootScope.fbUserId,
           access_token: $rootScope.fbAccessToken
@@ -122,7 +122,7 @@ function ($, app, eventBus, facebookService) {
         });
       };
       $scope.updateMyStats = function () {
-        var MyStats = $resource('/freeats/mystats');
+        var MyStats = $resource('/mystats');
         var stats = MyStats.get({
           user_id: $rootScope.fbUserId,
           access_token: $rootScope.fbAccessToken
