@@ -183,6 +183,14 @@ function ($, google, eventBus) {
     doAnimation = animate ? true : false;
   });
 
+  eventBus.on('findDistance', function (data)) {
+    var distance = findDistance(locations[data.location]);
+    eventBus.emit('foundDistance', {
+      postId: data.postId,
+      distance: distance
+    });
+  });
+
   var setupMapCentering = function () {
     return setInterval(function () {
       var offsetX = calculateXOffset();
