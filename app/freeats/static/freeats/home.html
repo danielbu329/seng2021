@@ -27,7 +27,7 @@
           <span class="middle">{{item.letter}}</span>
         </div>
         <div class="title">
-          <span class="middle">{{item.title}}</span>
+          <span class="middle truncate">{{item.title}}</span>
           <span class="middle pull-right grey">{{formatTime(item.creation_time)}}</span>
         </div>
         <div class="voteBtn up" ng-class="{'selected': item.vote == 'up'}"
@@ -39,10 +39,10 @@
           <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
         </div>
         <div class="location">
-          <span class="middle">{{item.location}}</span>
+          <span class="middle truncate">{{item.location}}</span>
           <span class="middle pull-right grey"
             ng-show="item.distance != null || item.distance != undefined">
-            {{item.distance.toFixed(0)}} m away
+            {{item.distance.toFixed(0)}} m
           </span>
         </div>
         <div class="voteBtn down" ng-class="{'selected': item.vote == 'down'}"
