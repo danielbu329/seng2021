@@ -17,6 +17,7 @@ Western Grounds
 Red Centre West
 Red Centre East
 Science Theatre
+Mathews Theatre
 Mathews/Clancy
 Library Stage
 Sam Cracknell
@@ -39,6 +40,7 @@ Quadrangle
 Goldstein
 Medicine
 Webster
+Mathews
 Samuels
 Colombo
 Tyree

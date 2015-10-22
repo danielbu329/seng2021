@@ -27,8 +27,8 @@ function ($, google, eventBus) {
     'library lawn': libaryLawn,
     'physics lawn': physicsLawn,
     'globe lawn': globeLawn,
-    'science theatre': scienceTheatre,
-    'science lawn': {lat: -33.917150, lng: 151.229864},
+    'science theatre': {lat: -33.917150, lng: 151.229864},
+    'science lawn': scienceTheatre,
     'quad lawn': quadLawn,
     'quad': quadLawn,
     'scientia lawn': scientiaLawn,
@@ -37,7 +37,8 @@ function ($, google, eventBus) {
     'college road lawn': collegeRoadLawn,
     'roundhouse': {lat: -33.916541, lng: 151.227053},
     'red centre': {lat: -33.917846, lng: 151.230202},
-    'mathews': {lat: -33.917538, lng: 151.234081}
+    'mathews': {lat: -33.917538, lng: 151.234081},
+    'mathews theatre': {lat: -33.917538, lng: 151.234081}
   }
 
   $($('.map')[0]).css({ display: 'block' });

@@ -16,6 +16,7 @@ function ($, app, eventBus, facebookService, moment) {
       $rootScope.loggedIn = false;
 
       $rootScope.getFacebookLoginStatus(function () {
+        console.log($rootScope.fbUserId);
         $scope.updateFoodList();
         (function loop() {
           setTimeout(function () {

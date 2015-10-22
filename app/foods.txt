@@ -25,3 +25,8 @@ cider
 beer
 sundae
 bbq
+chocolate
+chips
+chip
+hot chip
+hot chips
