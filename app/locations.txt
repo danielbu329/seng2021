@@ -1,32 +1,51 @@
-ADFA Campus
-Ainsworth Building
-Art & Design
-Biological Science
-Central Lecture Block
-Chemical Sciences
-Civil Engineering
-College of Fine Arts
-Colombo
-Computer Science and Eng (K17)
-Electrical Engineering
-Goldstein
-Heffron Building
-Huts
-John Goodsell
-Law
-Library Stage 2
-Materials Science
-Mathews/Clancy
-Medicine
-Morven Brown
-Old Main Building
-Quadrangle
-Red Centre East
-Red Centre West
-Rupert Myers
-Samuels
-Square House
 Tyree Energy Technology Building
+Australian School of Business
+Computer Science and Eng
+Electrical Engineering
+Central Lecture Block
 UNSW Business School
-Webster
+College of Fine Arts
+Biological Science
+Ainsworth Building
+Old Main Building
+Materials Science
+Civil Engineering
+Chemical Sciences
+Material Science
+Heffron Building
 Western Grounds
+Red Centre West
+Red Centre East
+Science Theatre
+Mathews/Clancy
+Library Stage
+Sam Cracknell
+Sam Cracknel
+John Goodsell
+Square House
+Rupert Myers
+Morven Brown
+Main Walkway
+Main Library
+Law Building
+Art & Design
+Science Lawn
+Law Library
+ADFA Campus
+Red Centre
+Roundhouse
+Quadrangle
+Goldstein
+Medicine
+Webster
+Samuels
+Colombo
+Tyree
+Quad
+Elec
+OMB
+Med
+ASB
+K17
+CLB
+Arc

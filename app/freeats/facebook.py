@@ -26,6 +26,7 @@ class Facebook:
         if statusCode == 200 and str(json['id']) == str(user_id):
             return str(json['id'])
         return ''
+
     def getFeed(self):
         params = urllib.parse.urlencode({
             'access_token': access_token,
@@ -66,10 +67,11 @@ class Facebook:
             post['otherfoods'] = ''
             post['title'] = ''
             post['location'] = ''
-            found = 0
+            foodFound = 0
+            locationFound = 0
             for f in foods:
                 if f.lower() in m['message'].lower():
-                    found = 1
+                    foodFound = 1
                     if (post['done'] == 0):
                         post['title'] = f
                         post['done'] = 1
@@ -77,9 +79,11 @@ class Facebook:
                         post['otherfoods'] += " " + f
 
                     for l in locations:
-                        if l.lower() in m['message'].lower():
+                        if (l.lower() in m['message'].lower() and locationFound == 0):
+                            locationFound = 1;
                             post['location'] = l
-            if found == 1:
+
+            if (foodFound == 1 and locationFound == 1):
                 filtered.append(post)
 
         return filtered
