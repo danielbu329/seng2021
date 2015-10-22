@@ -1,0 +1,211 @@
+<div class="loading">
+  <div>
+    <img src="/static/freeats/logo_only_white.png">
+  </div>
+</div>
+<div class="mobile-top-bar"></div>
+<div class="item-panel">
+  <div class="indent freeats-title">
+    <img src="/static/freeats/logo_side.png">
+  </div>
+  <div class="indent items">
+    <div class="mobile-back-button" ng-click="mobileBackButton()">
+      <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"</span>
+    </div>
+    <div ng-show="foodCollection.length == 0" class="alert alert-info" role="alert">
+      <p>
+        <b>Oh no!</b> There's no free food at UNSW currently.
+      </p>
+      <p>
+        If you're not too hungry, check back here soon and hopefully
+        we can feed your desire for free food!
+      </p>
+    </div>
+    <div ng-repeat="item in foodCollection">
+      <div class="item" ng-click="showFoodOnMap($event, item.id)">
+        <div class="letter">
+          <span class="middle">{{item.letter}}</span>
+        </div>
+        <div class="title">
+          <span class="middle">{{item.title}}</span>
+          <span class="middle pull-right grey">{{formatTime(item.creation_time)}}</span>
+        </div>
+        <div class="voteBtn up" ng-class="{'selected': item.vote == 'up'}"
+              ng-click="upvote($event, item.id)">
+          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+        </div>
+        <div class="info-btn middle pull-right"
+              ng-click="showFoodDetail($event, item.id)">
+          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+        </div>
+        <div class="location">
+          <span class="middle">{{item.location}}</span>
+          <span class="middle pull-right grey"
+            ng-show="item.distance != null || item.distance != undefined">
+            {{item.distance.toFixed(0)}} m away
+          </span>
+        </div>
+        <div class="voteBtn down" ng-class="{'selected': item.vote == 'down'}"
+              ng-click="downvote($event, item.id)">
+          <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+        </div>
+        <div class="bar">
+          <span class="upvotes" ng-style="{ 'width': item.upvotes }">&nbsp;</span>
+          <span class="downvotes" ng-style="{ 'width': item.downvotes }">&nbsp;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="top-right">
+  <div class="dropdown" ng-show="$root.loggedIn">
+    <img class="profile-icon" ng-src="https://graph.facebook.com/v2.5/{{$root.fbUserId}}/picture"
+          id="userDropdown" data-toggle="dropdown">
+    <ul class="dropdown-menu pull-right" aria-labelledby="userDropdown">
+      <li><a href="/me">My Posts</a></li>
+      <li ng-show="$root.admin_status">
+        <a href="/admin">
+          Review Posts
+          <span class="glyphicon glyphicon-eye-open pull-right" aria-hidden="true"></span>
+        </a>
+      </li>
+      <li><a href="" ng-click="$root.logoutFacebook()">Logout</a></li>
+    </ul>
+  </div>
+  <div class="facebook-login" ng-show="!$root.loggedIn">
+    <button class="btn btn-facebook" ng-click="$root.loginFacebook()">
+      <img src="https://www.facebookbrand.com/img/assets/asset.f.logo.lg.png">
+      Log in with Facebook
+    </button>
+  </div>
+</div>
+
+<div class="bottom-right">
+  <button type="button" class="btn btn-primary" ng-click="createPost()" ng-show="$root.loggedIn">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    <span class="text">New post</span>
+  </button>
+</div>
+
+<!-- Modal popups below -->
+
+<div id="foodDetailModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close"
+          data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">
+          {{currentItem.title}}
+          <span class="pull-right">{{formatTime(currentItem.creation_time)}}</span>
+        </h4>
+
+      </div>
+      <div class="modal-body">
+        <div class="voteBtn-group pull-right">
+          <div class="voteBtn up"
+                ng-class="{'selected': currentItem.vote == 'up'}"
+                ng-click="upvote($event, currentItem.id)">
+            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+          </div>
+          <div class="voteBtn down"
+                ng-class="{'selected': currentItem.vote == 'down'}"
+                ng-click="downvote($event, currentItem.id)">
+            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+          </div>
+        </div>
+        <p>
+          <b>Where:</b> {{currentItem.location}}
+        </p>
+        <p>
+          <b>Original Post:</b>
+          <br/>
+          <img ng-if="currentItem.img_url.length > 0" ng-src="{{currentItem.img_url}}"
+              class="food-pic pull-right">
+        </p>
+        <blockquote class="food-post">
+          <p>{{currentItem.post}}</p>
+          <div ng-if="currentItem.fb_post_id.length > 0">
+            <footer>UNSW Free Food Facebook group</footer>
+          </div>
+        </blockquote>
+      </div>
+      <div class="modal-footer">
+        <span class="pull-left modal-footer-info">
+          <div ng-switch on="currentItem.fb_post_id.length > 0">
+            <div ng-switch-when="true">
+              <a target="_blank"
+                  href="https://www.facebook.com/groups/unswfreefood">
+                <img src="/static/freeats/fb_icon.png" class="fb-icon">
+              </a>
+              <a target="_blank"
+                  ng-href="https://www.facebook.com/{{currentItem.fb_post_id}}">
+                See this post on Facebook
+              </a>
+            </div>
+            <div ng-switch-default>
+              Submitted via Freeats
+            </div>
+          </div>
+        </span>
+        <button type="button" class="btn btn-default"
+          data-dismiss="modal">
+            Close
+        </button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="newPostModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close"
+          data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Create Post</h4>
+      </div>
+      <form class="form-horizontal" role="form" ng-submit="submitPost()">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="title">Title:</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="title" ng-model="newPost.title">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="location">Location:</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control" id="location" ng-model="newPost.location">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="description">Description:</label>
+            <div class="col-sm-9">
+              <textarea class="form-control" rows="5" id="description"
+                ng-model="newPost.description"></textarea>
+            </div>
+          </div>
+          <div class="form-group" ng-hide="true">
+            <label class="control-label col-sm-3" for="image-upload">Upload Image:</label>
+            <div class="col-sm-9">
+              <input type="file" id="image-upload" ng-model="newPost.image">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default"
+            data-dismiss="modal">
+              Close
+          </button>
+          <input type="submit" value="Submit post" class="btn btn-primary pull-right" />
+        </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
