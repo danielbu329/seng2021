@@ -19,7 +19,7 @@ class Food(models.Model):
         super(Food, self).save(*args, **kwargs)
 
 class User(models.Model):
-    fb_user_id = models.CharField(max_length=50)
+    fb_user_id = models.CharField(max_length=50, unique=True)
     admin_status = models.BooleanField(default=False);
 
 class Vote(models.Model):

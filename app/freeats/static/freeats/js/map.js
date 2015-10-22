@@ -28,11 +28,16 @@ function ($, google, eventBus) {
     'Physics lawn': physicsLawn,
     'Globe lawn': globeLawn,
     'Science Theatre': scienceTheatre,
+    'Science lawn': scienceTheatre,
     'Quad Lawn': quadLawn,
+    'Quad': quadLawn,
     'Scientia Lawn': scientiaLawn,
     'John Lions Garden': johnLionsGarden,
     'Arc': arcLocation,
-    'College Road Lawn': collegeRoadLawn
+    'College Road Lawn': collegeRoadLawn,
+    'Roundhouse': {lat: -33.916541, lng: 151.227053},
+    'Red Centre': {lat: -33.917846, lng: 151.230202},
+    'Mathews': {lat: -33.917538, lng: 151.234081}
   }
 
   $($('.map')[0]).css({ display: 'block' });
