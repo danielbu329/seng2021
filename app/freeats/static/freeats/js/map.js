@@ -23,21 +23,21 @@ function ($, google, eventBus) {
   var myLocation = null;
 
   var locations = {
-    'Main Walkway': mainWalkway,
-    'Library lawn': libaryLawn,
-    'Physics lawn': physicsLawn,
-    'Globe lawn': globeLawn,
-    'Science Theatre': scienceTheatre,
-    'Science lawn': scienceTheatre,
-    'Quad Lawn': quadLawn,
-    'Quad': quadLawn,
-    'Scientia Lawn': scientiaLawn,
-    'John Lions Garden': johnLionsGarden,
-    'Arc': arcLocation,
-    'College Road Lawn': collegeRoadLawn,
-    'Roundhouse': {lat: -33.916541, lng: 151.227053},
-    'Red Centre': {lat: -33.917846, lng: 151.230202},
-    'Mathews': {lat: -33.917538, lng: 151.234081}
+    'main walkway': mainWalkway,
+    'library lawn': libaryLawn,
+    'physics lawn': physicsLawn,
+    'globe lawn': globeLawn,
+    'science theatre': scienceTheatre,
+    'science lawn': {lat: -33.917150, lng: 151.229864},
+    'quad lawn': quadLawn,
+    'quad': quadLawn,
+    'scientia lawn': scientiaLawn,
+    'john lions garden': johnLionsGarden,
+    'arc': arcLocation,
+    'college road lawn': collegeRoadLawn,
+    'roundhouse': {lat: -33.916541, lng: 151.227053},
+    'red centre': {lat: -33.917846, lng: 151.230202},
+    'mathews': {lat: -33.917538, lng: 151.234081}
   }
 
   $($('.map')[0]).css({ display: 'block' });
@@ -50,10 +50,10 @@ function ($, google, eventBus) {
   });
 
   var markers = [];
-  var addMarker = function (location, map) {
+  var addMarker = function (location, label, map) {
     var marker = new google.maps.Marker({
       position: location,
-      label: labels[labelIndex++ % labels.length],
+      label: label,
       animation: doAnimation ? google.maps.Animation.DROP : null,
       map: map
     });
@@ -88,7 +88,6 @@ function ($, google, eventBus) {
         if (currentLocation == null) {
           currentLocation = new google.maps.Marker({
             position: myLocation,
-            label: "M",
             animation: google.maps.Animation.DROP,
             map: map
           });
@@ -162,7 +161,7 @@ function ($, google, eventBus) {
   };
 
   eventBus.on('showFoodOnMap', function (location) {
-    selectedLocation = locations[location];
+    selectedLocation = locations[location.toLowerCase()];
     map.setZoom(18);
     map.setCenter(selectedLocation);
     map.panBy(calculateXOffset(), calculateYOffset());
@@ -180,8 +179,10 @@ function ($, google, eventBus) {
     findLocation();
   });
 
-  eventBus.on('addMapMarker', function (locationName) {
-    addMarker(locations[locationName], map);
+  eventBus.on('addMapMarker', function (data) {
+    var location = data.location;
+    var label = data.letter;
+    addMarker(locations[location.toLowerCase()], label, map);
   });
 
   eventBus.on('setMapAnimation', function (animate) {
@@ -189,7 +190,7 @@ function ($, google, eventBus) {
   });
 
   eventBus.on('findDistance', function (data) {
-    var distance = findDistance(locations[data.location]);
+    var distance = findDistance(locations[data.location.toLowerCase()]);
     eventBus.emit('foundDistance', {
       postId: data.postId,
       distance: distance

@@ -151,12 +151,18 @@ function ($, app, eventBus, facebookService, moment) {
           getItemById(data.postId).distance = data.distance;
         });
         Food.query(params, function (results) {
+          var locations = {};
           var letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
           $scope.foodCollection = [];
           eventBus.emit('clearMapMarkers');
           for (var i = 0; i < results.length; i++) {
             var food = angular.copy(results[i]);
-            food.letter = letters[i % letters.length];
+            if (food.location.toLowerCase() in locations) {
+              food.letter = locations[food.location.toLowerCase()];
+            } else {
+              food.letter = letters[i % letters.length];
+              locations[food.location.toLowerCase()] = food.letter;
+            }
             food.post = food.description;
             delete food.description;
             food.creation_time = food.creation_time.replace(/T/, ' ').replace(/Z/, '');
@@ -166,7 +172,10 @@ function ($, app, eventBus, facebookService, moment) {
               food.upvotes = (food.likes / food.votes)*100 + '%';
               food.downvotes = (food.dislikes / food.votes)*100 + '%';
             }
-            eventBus.emit('addMapMarker', food.location);
+            eventBus.emit('addMapMarker', {
+              location: food.location,
+              letter: food.letter
+            });
             $scope.foodCollection.push(food);
             eventBus.emit('findDistance', {
               postId: food.id,
