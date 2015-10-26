@@ -5,11 +5,14 @@ define('facebookService', [
 function (app, FB) {
   app.factory(
     'facebookService',
-    function ($rootScope) {
+    function ($rootScope, $location) {
       var facebookService = {};
+      var prodId = '1633260020259993';
+      var devId = '1648532882066040';
+      var domains = ['freeats.info', 'freeats.herokuapp.com'];
       facebookService.init = function () {
         FB.init({
-          appId: '1633260020259993',
+          appId: $location.host() in domains ? prodId : devId,
           version: 'v2.4'
         });
       };
